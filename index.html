@@ -2,32 +2,60 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jodidar</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jodidar</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
-    <h1>💖 Jodidar</h1>
-    <p>आपल्या जीवनसाथीचा शोध</p>
+<h1>💖 Jodidar</h1>
+<p>आपल्या जीवनसाथीचा शोध</p>
 </header>
 
 <nav>
-    <a href="#">होम</a>
-    <a href="#">प्रोफाइल</a>
-    <a href="#">संपर्क</a>
+<a href="#">होम</a>
+<a href="#">प्रोफाइल</a>
+<a href="#">संपर्क</a>
 </nav>
 
 <section class="hero">
-    <h2>Jodidar मध्ये आपले स्वागत आहे</h2>
-    <p>विश्वासार्ह विवाह संकेतस्थळ</p>
-    <button>नोंदणी करा</button>
+<h2>Jodidar मध्ये आपले स्वागत आहे</h2>
+<p>विश्वासार्ह विवाह संकेतस्थळ</p>
+</section>
+
+<section id="register">
+<h2>नोंदणी फॉर्म</h2>
+
+<form>
+
+<label>पूर्ण नाव</label>
+<input type="text" placeholder="तुमचे पूर्ण नाव" required>
+
+<label>मोबाईल नंबर</label>
+<input type="tel" placeholder="9876543210" required>
+
+<label>ई-मेल</label>
+<input type="email" placeholder="example@gmail.com">
+
+<label>लिंग</label>
+<select required>
+<option>पुरुष</option>
+<option>महिला</option>
+</select>
+
+<label>वय</label>
+<input type="number" min="18" max="80" required>
+
+<button type="submit">नोंदणी करा</button>
+
+</form>
 </section>
 
 <footer>
-    <p>© 2026 Jodidar. सर्व हक्क राखीव.</p>
+<p>© 2026 Jodidar. सर्व हक्क राखीव.</p>
 </footer>
 
 </body>
