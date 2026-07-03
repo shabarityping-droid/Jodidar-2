@@ -1,22 +1,32 @@
 
-b<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="mr">
 <head>
-  <meta charset="UTF-8">
-  <title>Logout</title>
+<meta charset="UTF-8">
+<title>Login</title>
 </head>
 <body>
 
+<h2>Login</h2>
+
+<input type="text" id="username" placeholder="Username"><br><br>
+<input type="password" id="password" placeholder="Password"><br><br>
+
+<button onclick="login()">Login</button>
+
 <script>
-  // Login माहिती हटवा
-  localStorage.removeItem("loggedInUser");
-  localStorage.removeItem("isLoggedIn");
-  sessionStorage.clear();
+function login() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
 
-  alert("तुम्ही यशस्वीरित्या Logout झाला आहात.");
-
-  // मुख्य पानावर जा
-  window.location.href = "index.html";
+    if(username !== "" && password !== "") {
+        localStorage.setItem("loggedInUser", username);
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = "profile.html";
+    } else {
+        alert("Username आणि Password भरा.");
+    }
+}
 </script>
 
 </body>
