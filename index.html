@@ -11,52 +11,64 @@
 <body>
 
 <header>
-<h1>💖 Jodidar</h1>
-<p>आपल्या जीवनसाथीचा शोध</p>
-</header>
+<h1>Jodidar</h1>
+<p>विश्वासार्ह विवाह परिचय केंद्र</p>
 
 <nav>
-<a href="#">होम</a>
-<a href="#">प्रोफाइल</a>
-<a href="#">संपर्क</a>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#services">Services</a>
+<a href="#contact">Contact</a>
 </nav>
+</header>
 
-<section class="hero">
-<h2>Jodidar मध्ये आपले स्वागत आहे</h2>
-<p>विश्वासार्ह विवाह संकेतस्थळ</p>
+<section class="hero" id="home">
+<h2>तुमचा योग्य जोडीदार येथे शोधा</h2>
+<p>विश्वास, सुरक्षितता आणि उत्तम सेवा.</p>
+<a href="#contact" class="btn">नोंदणी करा</a>
 </section>
 
-<section id="register">
-<h2>नोंदणी फॉर्म</h2>
+<section id="about">
+<h2>आमच्याबद्दल</h2>
+<p>Jodidar विवाह परिचय केंद्रामध्ये आपले स्वागत आहे.</p>
+</section>
+
+<section id="services">
+<h2>सेवा</h2>
+
+<div class="cards">
+<div class="card">
+<h3>वर नोंदणी</h3>
+</div>
+
+<div class="card">
+<h3>वधू नोंदणी</h3>
+</div>
+
+<div class="card">
+<h3>प्रीमियम सदस्य</h3>
+</div>
+</div>
+
+</section>
+
+<section id="contact">
+<h2>संपर्क</h2>
 
 <form>
-
-<label>पूर्ण नाव</label>
-<input type="text" placeholder="तुमचे पूर्ण नाव" required>
-
-<label>मोबाईल नंबर</label>
-<input type="tel" placeholder="9876543210" required>
-
-<label>ई-मेल</label>
-<input type="email" placeholder="example@gmail.com">
-
-<label>लिंग</label>
-<select required>
-<option>पुरुष</option>
-<option>महिला</option>
-</select>
-
-<label>वय</label>
-<input type="number" min="18" max="80" required>
-
-<button type="submit">नोंदणी करा</button>
-
+<input type="text" placeholder="नाव">
+<input type="tel" placeholder="मोबाईल">
+<textarea placeholder="संदेश"></textarea>
+<button type="submit">Submit</button>
 </form>
+
 </section>
 
 <footer>
-<p>© 2026 Jodidar. सर्व हक्क राखीव.</p>
+<p>© 2026 Jodidar. All Rights Reserved.</p>
 </footer>
+
+<script src="script.js"></script>
 
 </body>
 </html>
