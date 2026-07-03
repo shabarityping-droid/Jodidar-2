@@ -1,1 +1,23 @@
 
+b<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <title>Logout</title>
+</head>
+<body>
+
+<script>
+  // Login माहिती हटवा
+  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("isLoggedIn");
+  sessionStorage.clear();
+
+  alert("तुम्ही यशस्वीरित्या Logout झाला आहात.");
+
+  // मुख्य पानावर जा
+  window.location.href = "index.html";
+</script>
+
+</body>
+</html>
