@@ -10,36 +10,37 @@
 <body>
 
 <header>
-    <h1>💖 Jodidar</h1>
+    <h1>❤️ Jodidar</h1>
 </header>
 
-<div class="container">
+<main>
+    <h2>Login</h2>
 
-    <h2>लॉगिन</h2>
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="ईमेल" required><br><br>
 
-    <form action="#">
-        <label>ईमेल</label><br>
-        <input type="email" placeholder="तुमचा ईमेल" required><br><br>
-
-        <label>पासवर्ड</label><br>
-        <input type="password" placeholder="तुमचा पासवर्ड" required><br><br>
+        <input type="password" id="password" placeholder="पासवर्ड" required><br><br>
 
         <button type="submit">Login</button>
     </form>
 
     <br>
 
-    <p>नवीन खाते नाही?</p>
+    <p>खाते नाही?
+        <a href="register.html">Register</a>
+    </p>
+</main>
 
-    <a href="register.html">
-        <button>नोंदणी करा</button>
-    </a>
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-    <br><br>
+    localStorage.setItem("loggedIn", "true");
+    alert("यशस्वीरित्या Login झाले.");
 
-    <a href="index.html">🏠 मुख्यपृष्ठावर जा</a>
-
-</div>
+    window.location.href = "profile.html";
+});
+</script>
 
 </body>
 </html>
