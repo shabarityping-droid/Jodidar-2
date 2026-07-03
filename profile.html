@@ -4,49 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>माझे प्रोफाइल - Jodidar</title>
+    <title>Profile - Jodidar</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-    <h1>Jodidar</h1>
+    <h1>❤️ Jodidar</h1>
 </header>
 
-<div class="container">
+<main>
     <h2>माझे प्रोफाइल</h2>
 
-    <form>
-        <label>पूर्ण नाव</label>
-        <input type="text" placeholder="तुमचे नाव">
+    <p>Jodidar मध्ये तुमचे स्वागत आहे.</p>
 
-        <label>वय</label>
-        <input type="number" placeholder="वय">
+    <h3>प्रोफाइल माहिती</h3>
 
-        <label>लिंग</label>
-        <select>
-            <option>पुरुष</option>
-            <option>महिला</option>
-        </select>
-
-        <label>शिक्षण</label>
-        <input type="text" placeholder="शिक्षण">
-
-        <label>व्यवसाय</label>
-        <input type="text" placeholder="व्यवसाय">
-
-        <label>पत्ता</label>
-        <textarea placeholder="पूर्ण पत्ता"></textarea>
-
-        <button type="submit">प्रोफाइल जतन करा</button>
-    </form>
+    <p><strong>नाव:</strong> User</p>
+    <p><strong>ईमेल:</strong> user@example.com</p>
 
     <br>
 
-    <a href="index.html">
-        <button>मुख्य पान</button>
-    </a>
-</div>
+    <button onclick="logout()">Logout</button>
+</main>
+
+<script>
+if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+}
+
+function logout() {
+    localStorage.removeItem("loggedIn");
+    alert("तुम्ही यशस्वीरित्या Logout झाला आहात.");
+    window.location.href = "login.html";
+}
+</script>
 
 </body>
 </html>
