@@ -1,1 +1,49 @@
 
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Jodidar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>❤️ Jodidar</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<main>
+    <h2>जोडीदार शोधा</h2>
+
+    <input type="text" id="searchBox" placeholder="नाव किंवा शहर लिहा">
+
+    <button onclick="searchProfile()">शोधा</button>
+
+    <div id="result" style="margin-top:20px;"></div>
+</main>
+
+<script>
+function searchProfile() {
+    const text = document.getElementById("searchBox").value.trim();
+    const result = document.getElementById("result");
+
+    if (text === "") {
+        result.innerHTML = "<p>कृपया शोधासाठी माहिती टाका.</p>";
+    } else {
+        result.innerHTML =
+            "<h3>शोध पूर्ण झाला</h3>" +
+            "<p>तुम्ही शोधले: <b>" + text + "</b></p>" +
+            "<p>ही डेमो आवृत्ती आहे. पुढे येथे वास्तविक प्रोफाइल दिसतील.</p>";
+    }
+}
+</script>
+
+</body>
+</html>
