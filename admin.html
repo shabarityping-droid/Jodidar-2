@@ -1,1 +1,89 @@
 
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Jodidar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>🛠️ Jodidar Admin Panel</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="search.html">Search</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<main>
+
+    <h2>Admin Login</h2>
+
+    <form id="adminLoginForm">
+        <input type="text" id="username" placeholder="Admin Username" required><br><br>
+
+        <input type="password" id="password" placeholder="Password" required><br><br>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <div id="dashboard" style="display:none; margin-top:30px;">
+        <h2>Dashboard</h2>
+
+        <p><strong>Total Users:</strong> 0</p>
+        <p><strong>Active Users:</strong> 0</p>
+        <p><strong>Pending Profiles:</strong> 0</p>
+
+        <h3>User Management</h3>
+        <table border="1" cellpadding="10">
+            <tr>
+                <th>नाव</th>
+                <th>ईमेल</th>
+                <th>स्थिती</th>
+            </tr>
+            <tr>
+                <td>Demo User</td>
+                <td>demo@example.com</td>
+                <td>Active</td>
+            </tr>
+        </table>
+
+        <br>
+
+        <button onclick="logout()">Logout</button>
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 Jodidar. All Rights Reserved.</p>
+</footer>
+
+<script>
+document.getElementById("adminLoginForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if(username === "admin" && password === "admin123"){
+        alert("Admin Login Successful");
+        document.getElementById("adminLoginForm").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+    } else {
+        alert("चुकीचे Username किंवा Password");
+    }
+});
+
+function logout(){
+    location.reload();
+}
+</script>
+
+</body>
+</html>
