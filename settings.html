@@ -1,1 +1,58 @@
 
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Jodidar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>⚙️ Jodidar Settings</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="search.html">Search</a>
+    <a href="matches.html">Matches</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<main>
+    <h2>Account Settings</h2>
+
+    <form>
+        <label>पूर्ण नाव</label><br>
+        <input type="text" placeholder="तुमचे नाव"><br><br>
+
+        <label>ईमेल</label><br>
+        <input type="email" placeholder="तुमचा ईमेल"><br><br>
+
+        <label>नवीन पासवर्ड</label><br>
+        <input type="password" placeholder="नवीन पासवर्ड"><br><br>
+
+        <button type="submit">बदल जतन करा</button>
+    </form>
+
+    <br>
+
+    <button onclick="logout()">Logout</button>
+</main>
+
+<footer>
+    <p>© 2026 Jodidar. All Rights Reserved.</p>
+</footer>
+
+<script>
+function logout() {
+    localStorage.removeItem("loggedIn");
+    alert("Logout यशस्वीरित्या झाला.");
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
