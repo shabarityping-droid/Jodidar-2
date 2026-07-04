@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="mr">
 <head>
@@ -9,36 +8,56 @@
 </head>
 <body>
 
-<header>
-    <h1>❤️ Jodidar</h1>
-</header>
-
-<main>
-    <h2>Login</h2>
+<div class="container">
+    <h2>Jodidar Login</h2>
 
     <form id="loginForm">
-        <input type="email" id="email" placeholder="ईमेल" required><br><br>
+        <input type="email" id="email" placeholder="ईमेल" required>
 
-        <input type="password" id="password" placeholder="पासवर्ड" required><br><br>
+        <input type="password" id="password" placeholder="पासवर्ड" required>
 
         <button type="submit">Login</button>
     </form>
 
     <br>
 
-    <p>खाते नाही?
-        <a href="register.html">Register</a>
-    </p>
-</main>
+    <p>नवीन वापरकर्ता?</p>
+    <a href="register.html">Register करा</a>
 
-<script>
-document.getElementById("loginForm").addEventListener("submit", function(e) {
+    <br><br>
+
+    <a href="index.html">🏠 Home</a>
+</div>
+
+<script type="module">
+import { auth } from "./firebase.js";
+import {
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const form = document.getElementById("loginForm");
+
+form.addEventListener("submit", async (e) => {
+
     e.preventDefault();
 
-    localStorage.setItem("loggedIn", "true");
-    alert("यशस्वीरित्या Login झाले.");
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-    window.location.href = "profile.html";
+    try {
+
+        await signInWithEmailAndPassword(auth, email, password);
+
+        alert("Login यशस्वी.");
+
+        window.location.href = "profile.html";
+
+    } catch (error) {
+
+        alert("Login अयशस्वी: " + error.message);
+
+    }
+
 });
 </script>
 
