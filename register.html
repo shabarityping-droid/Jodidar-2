@@ -3,78 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>नोंदणी - Jodidar</title>
+    <title>Jodidar - नवीन नोंदणी</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="register.js"></script>
 </head>
+
 <body>
 
 <div class="container">
-    <h2>Jodidar - नवीन नोंदणी</h2>
+
+    <h1>Jodidar - नवीन नोंदणी</h1>
 
     <form id="registerForm">
 
-        <input type="text" id="name" placeholder="पूर्ण नाव" required>
+        <input
+            type="text"
+            id="name"
+            placeholder="पूर्ण नाव"
+            required
+        >
 
-        <input type="email" id="email" placeholder="ईमेल" required>
+        <input
+            type="email"
+            id="email"
+            placeholder="ईमेल"
+            required
+        >
 
-        <input type="tel" id="mobile" placeholder="मोबाईल नंबर" required>
+        <input
+            type="tel"
+            id="mobile"
+            placeholder="मोबाईल नंबर"
+            maxlength="10"
+            required
+        >
 
-        <input type="password" id="password" placeholder="पासवर्ड" required>
+        <input
+            type="password"
+            id="password"
+            placeholder="पासवर्ड"
+            required
+        >
 
-        <input type="password" id="confirmPassword" placeholder="पासवर्ड पुन्हा टाका" required>
-
-        <button type="submit">नोंदणी करा</button>
+        <button type="submit">
+            Register
+        </button>
 
     </form>
 
     <br>
 
-    <p>आधीच खाते आहे?</p>
-    <a href="login.html">Login करा</a>
+    <p>
+        आधीच खाते आहे?
+        <a href="login.html">Login</a>
+    </p>
 
-    <br><br>
+    <br>
 
     <a href="index.html">🏠 Home</a>
 
 </div>
-
-<script type="module">
-import { auth } from "./firebase.js";
-import {
-    createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const form = document.getElementById("registerForm");
-
-form.addEventListener("submit", async (e) => {
-
-    e.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirm = document.getElementById("confirmPassword").value;
-
-    if (password !== confirm) {
-        alert("पासवर्ड जुळत नाही.");
-        return;
-    }
-
-    try {
-
-        await createUserWithEmailAndPassword(auth, email, password);
-
-        alert("नोंदणी यशस्वी झाली.");
-
-        window.location.href = "login.html";
-
-    } catch (error) {
-
-        alert(error.message);
-
-    }
-
-});
-</script>
 
 </body>
 </html>
