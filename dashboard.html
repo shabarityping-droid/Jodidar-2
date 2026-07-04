@@ -1,1 +1,84 @@
 
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jodidar Dashboard</title>
+
+    <style>
+        body{
+            margin:0;
+            font-family:Arial,sans-serif;
+            background:#f4f4f4;
+            text-align:center;
+        }
+
+        .container{
+            margin-top:80px;
+        }
+
+        h1{
+            color:#e91e63;
+        }
+
+        button{
+            padding:12px 25px;
+            font-size:18px;
+            border:none;
+            border-radius:8px;
+            background:#e91e63;
+            color:white;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#c2185b;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Welcome to Jodidar ❤️</h1>
+
+    <p id="userEmail"></p>
+
+    <button onclick="logout()">Logout</button>
+</div>
+
+<script type="module">
+
+import { auth } from "./firebase.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+onAuthStateChanged(auth,(user)=>{
+
+    if(user){
+        document.getElementById("userEmail").innerHTML =
+        "Logged in as : " + user.email;
+    }else{
+        window.location.href="login.html";
+    }
+
+});
+
+window.logout=function(){
+
+    signOut(auth)
+    .then(()=>{
+        alert("Logged Out Successfully");
+        window.location.href="login.html";
+    });
+
+}
+
+</script>
+
+</body>
+</html>
