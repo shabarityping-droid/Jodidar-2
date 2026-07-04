@@ -1,65 +1,31 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Jodidar</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Jodidar</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-    <h2>Jodidar Login</h2>
+  <h2>Login</h2>
 
-    <form id="loginForm">
-        <input type="email" id="email" placeholder="ईमेल" required>
+  <input type="email" id="email" placeholder="Email">
 
-        <input type="password" id="password" placeholder="पासवर्ड" required>
+  <input type="password" id="password" placeholder="Password">
 
-        <button type="submit">Login</button>
-    </form>
+  <button onclick="loginUser()">Login</button>
 
-    <br>
+  <p>
+    खाते नाही?
+    <a href="register.html">Register</a>
+  </p>
 
-    <p>नवीन वापरकर्ता?</p>
-    <a href="register.html">Register करा</a>
-
-    <br><br>
-
-    <a href="index.html">🏠 Home</a>
+  <p id="message"></p>
 </div>
 
-<script type="module">
-import { auth } from "./firebase.js";
-import {
-    signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const form = document.getElementById("loginForm");
-
-form.addEventListener("submit", async (e) => {
-
-    e.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    try {
-
-        await signInWithEmailAndPassword(auth, email, password);
-
-        alert("Login यशस्वी.");
-
-        window.location.href = "profile.html";
-
-    } catch (error) {
-
-        alert("Login अयशस्वी: " + error.message);
-
-    }
-
-});
-</script>
+<script type="module" src="login.js"></script>
 
 </body>
 </html>
