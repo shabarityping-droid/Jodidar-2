@@ -3,27 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>जोडीदार शोध</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Search Profiles</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f2f2f2;
+            margin:0;
+            padding:20px;
+        }
+
+        h2{
+            text-align:center;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            margin-top:10px;
+            border-radius:5px;
+            border:1px solid #ccc;
+            box-sizing:border-box;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            margin-top:10px;
+            background:#ff4081;
+            color:white;
+            border:none;
+            border-radius:5px;
+            font-size:16px;
+        }
+
+        .profile-card{
+            background:white;
+            padding:15px;
+            margin-top:15px;
+            border-radius:8px;
+            box-shadow:0 2px 5px rgba(0,0,0,.2);
+        }
+    </style>
+
 </head>
+
 <body>
 
-<header>
-    <h1>जोडीदार शोध</h1>
-</header>
+<h2>जोडीदार शोधा</h2>
 
-<div class="container">
+<input
+type="text"
+id="searchInput"
+placeholder="नाव, जिल्हा किंवा शिक्षण लिहा">
 
-    <input type="text" id="searchInput"
-           placeholder="नाव, जिल्हा किंवा शिक्षण शोधा...">
+<button onclick="searchProfiles()">
+Search
+</button>
 
-    <button onclick="searchProfiles()">🔍 शोधा</button>
+<div id="results"></div>
 
-    <div id="results"></div>
-
-</div>
-
-<script src="search.js"></script>
+<script src="Search.js"></script>
 
 </body>
 </html>
