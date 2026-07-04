@@ -4,40 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - Jodidar</title>
+    <title>माझे प्रोफाइल - Jodidar</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-    <h1>❤️ Jodidar</h1>
+    <h1>Jodidar</h1>
 </header>
 
-<main>
+<div class="container">
+
     <h2>माझे प्रोफाइल</h2>
 
-    <p>Jodidar मध्ये तुमचे स्वागत आहे.</p>
+    <form id="profileForm">
 
-    <h3>प्रोफाइल माहिती</h3>
+        <label>पूर्ण नाव</label>
+        <input type="text" id="name" placeholder="तुमचे नाव">
 
-    <p><strong>नाव:</strong> User</p>
-    <p><strong>ईमेल:</strong> user@example.com</p>
+        <label>मोबाईल नंबर</label>
+        <input type="text" id="mobile" placeholder="मोबाईल नंबर">
+
+        <label>वय</label>
+        <input type="number" id="age" placeholder="वय">
+
+        <label>जिल्हा</label>
+        <input type="text" id="district" placeholder="जिल्हा">
+
+        <label>शिक्षण</label>
+        <input type="text" id="education" placeholder="शिक्षण">
+
+        <label>व्यवसाय</label>
+        <input type="text" id="occupation" placeholder="व्यवसाय">
+
+        <button type="submit">Save Profile</button>
+
+    </form>
 
     <br>
 
-    <button onclick="logout()">Logout</button>
-</main>
+    <button onclick="location.href='index.html'">
+        Home
+    </button>
+
+</div>
+
+<script src="firebase.js"></script>
 
 <script>
-if (localStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "login.html";
-}
+document.getElementById("profileForm").addEventListener("submit", function(e){
+    e.preventDefault();
 
-function logout() {
-    localStorage.removeItem("loggedIn");
-    alert("तुम्ही यशस्वीरित्या Logout झाला आहात.");
-    window.location.href = "login.html";
-}
+    alert("Profile Save करण्यासाठी पुढील टप्प्यात Firebase Database जोडू.");
+
+});
 </script>
 
 </body>
