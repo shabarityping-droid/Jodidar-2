@@ -3,67 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Profiles</title>
-
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            background:#f2f2f2;
-            margin:0;
-            padding:20px;
-        }
-
-        h2{
-            text-align:center;
-        }
-
-        input{
-            width:100%;
-            padding:12px;
-            margin-top:10px;
-            border-radius:5px;
-            border:1px solid #ccc;
-            box-sizing:border-box;
-        }
-
-        button{
-            width:100%;
-            padding:12px;
-            margin-top:10px;
-            background:#ff4081;
-            color:white;
-            border:none;
-            border-radius:5px;
-            font-size:16px;
-        }
-
-        .profile-card{
-            background:white;
-            padding:15px;
-            margin-top:15px;
-            border-radius:8px;
-            box-shadow:0 2px 5px rgba(0,0,0,.2);
-        }
-    </style>
-
+    <title>Search Profiles - Jodidar</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<h2>जोडीदार शोधा</h2>
+<header>
+    <h1>जोडीदार</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="contact.html">Contact</a>
+        <button id="logoutBtn">Logout</button>
+    </nav>
+</header>
 
-<input
-type="text"
-id="searchInput"
-placeholder="नाव, जिल्हा किंवा शिक्षण लिहा">
+<main class="container">
 
-<button onclick="searchProfiles()">
-Search
-</button>
+    <h2>जोडीदार शोधा</h2>
 
-<div id="results"></div>
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="नाव, शहर किंवा व्यवसाय शोधा">
 
-<script src="Search.js"></script>
+    <div id="profilesContainer">
+        <p>Loading profiles...</p>
+    </div>
+
+</main>
+
+<script type="module" src="firebase.js"></script>
+<script type="module" src="search.js"></script>
 
 </body>
 </html>
