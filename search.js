@@ -1,50 +1,86 @@
-
 const profiles = [
-  {
-    name: "राहुल पाटील",
-    district: "पुणे",
-    education: "B.E.",
-    age: 28
-  },
-  {
-    name: "प्रिया शिंदे",
-    district: "नाशिक",
-    education: "M.Com",
-    age: 25
-  },
-  {
-    name: "अमोल देशमुख",
-    district: "औरंगाबाद",
-    education: "B.Sc",
-    age: 30
-  }
+
+{
+name:"राहुल पाटील",
+district:"पुणे",
+education:"B.E.",
+age:28
+},
+
+{
+name:"प्रिया शिंदे",
+district:"नाशिक",
+education:"M.Com",
+age:25
+},
+
+{
+name:"अमोल देशमुख",
+district:"औरंगाबाद",
+education:"B.Sc",
+age:30
+},
+
+{
+name:"स्नेहा पवार",
+district:"सातारा",
+education:"MBA",
+age:26
+},
+
+{
+name:"रोहित जाधव",
+district:"कोल्हापूर",
+education:"B.Tech",
+age:29
+}
+
 ];
 
-function searchProfiles() {
-  const input = document.getElementById("searchInput").value.toLowerCase();
-  const results = document.getElementById("results");
+function searchProfiles(){
 
-  results.innerHTML = "";
+const input=document.getElementById("searchInput").value.toLowerCase();
 
-  const filtered = profiles.filter(profile =>
-    profile.name.toLowerCase().includes(input) ||
-    profile.district.toLowerCase().includes(input) ||
-    profile.education.toLowerCase().includes(input)
-  );
+const results=document.getElementById("results");
 
-  if (filtered.length === 0) {
-    results.innerHTML = "<p>कोणतेही प्रोफाइल सापडले नाही.</p>";
-    return;
-  }
+results.innerHTML="";
 
-  filtered.forEach(profile => {
-    results.innerHTML += `
-      <div class="profile-card">
-        <h3>${profile.name}</h3>
-        <p><strong>जिल्हा:</strong> ${profile.district}</p>
-        <p><strong>शिक्षण:</strong> ${profile.education}</p>
-        <p><strong>वय:</strong> ${profile.age}</p>
-      </div>
-    `;
-  });
+const filtered=profiles.filter(profile=>
+
+profile.name.toLowerCase().includes(input) ||
+
+profile.district.toLowerCase().includes(input) ||
+
+profile.education.toLowerCase().includes(input)
+
+);
+
+if(filtered.length===0){
+
+results.innerHTML="<p>कोणतेही प्रोफाइल सापडले नाही.</p>";
+
+return;
+
+}
+
+filtered.forEach(profile=>{
+
+results.innerHTML+=`
+
+<div class="profile-card">
+
+<h3>${profile.name}</h3>
+
+<p><strong>जिल्हा :</strong> ${profile.district}</p>
+
+<p><strong>शिक्षण :</strong> ${profile.education}</p>
+
+<p><strong>वय :</strong> ${profile.age}</p>
+
+</div>
+
+`;
+
+});
+
 }
