@@ -1,43 +1,80 @@
-
 <!DOCTYPE html>
 <html lang="mr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Jodidar</title>
+    <title>नोंदणी - Jodidar</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-    <h1>❤️ Jodidar</h1>
-</header>
+<div class="container">
+    <h2>Jodidar - नवीन नोंदणी</h2>
 
-<main>
-    <h2>नोंदणी (Register)</h2>
+    <form id="registerForm">
 
-    <form action="login.html">
-        <input type="text" placeholder="पूर्ण नाव" required><br><br>
+        <input type="text" id="name" placeholder="पूर्ण नाव" required>
 
-        <input type="email" placeholder="ईमेल" required><br><br>
+        <input type="email" id="email" placeholder="ईमेल" required>
 
-        <input type="password" placeholder="पासवर्ड" required><br><br>
+        <input type="tel" id="mobile" placeholder="मोबाईल नंबर" required>
 
-        <input type="number" placeholder="वय" required><br><br>
+        <input type="password" id="password" placeholder="पासवर्ड" required>
+
+        <input type="password" id="confirmPassword" placeholder="पासवर्ड पुन्हा टाका" required>
 
         <button type="submit">नोंदणी करा</button>
+
     </form>
 
     <br>
 
-    <p>आधीच खाते आहे?
-        <a href="login.html">Login</a>
-    </p>
-</main>
+    <p>आधीच खाते आहे?</p>
+    <a href="login.html">Login करा</a>
 
-<footer>
-    <p>© 2026 Jodidar. All Rights Reserved.</p>
-</footer>
+    <br><br>
+
+    <a href="index.html">🏠 Home</a>
+
+</div>
+
+<script type="module">
+import { auth } from "./firebase.js";
+import {
+    createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const form = document.getElementById("registerForm");
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirmPassword").value;
+
+    if (password !== confirm) {
+        alert("पासवर्ड जुळत नाही.");
+        return;
+    }
+
+    try {
+
+        await createUserWithEmailAndPassword(auth, email, password);
+
+        alert("नोंदणी यशस्वी झाली.");
+
+        window.location.href = "login.html";
+
+    } catch (error) {
+
+        alert(error.message);
+
+    }
+
+});
+</script>
 
 </body>
 </html>
