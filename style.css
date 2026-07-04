@@ -1,75 +1,100 @@
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
+/* General */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-body{
-    background:#f4f4f4;
-    color:#333;
+body {
+  background: #f4f6f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-header{
-    background:#e91e63;
-    color:white;
-    text-align:center;
-    padding:20px;
+/* Container */
+.container {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-nav{
-    background:#333;
-    text-align:center;
-    padding:10px;
+/* Heading */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-nav a{
-    color:white;
-    text-decoration:none;
-    margin:0 15px;
-    font-weight:bold;
+/* Form */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 16px;
 }
 
-nav a:hover{
-    color:yellow;
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff;
 }
 
-main{
-    max-width:800px;
-    margin:30px auto;
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-input, select, textarea{
-    width:100%;
-    padding:10px;
-    margin:10px 0;
-    border:1px solid #ccc;
-    border-radius:5px;
+button:hover {
+  background: #0056b3;
 }
 
-button{
-    background:#e91e63;
-    color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:5px;
-    cursor:pointer;
-    font-size:16px;
+/* Links */
+a {
+  color: #007bff;
+  text-decoration: none;
 }
 
-button:hover{
-    background:#c2185b;
+a:hover {
+  text-decoration: underline;
 }
 
-footer{
-    background:#333;
-    color:white;
-    text-align:center;
-    padding:15px;
-    margin-top:30px;
+/* Message */
+.message {
+  text-align: center;
+  margin-top: 15px;
+  color: green;
+}
+
+.error {
+  text-align: center;
+  margin-top: 15px;
+  color: red;
+}
+
+/* Dashboard */
+.card {
+  background: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
