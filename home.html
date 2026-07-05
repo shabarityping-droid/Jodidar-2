@@ -1,58 +1,73 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jodidar - Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home</title>
 
-    <link rel="stylesheet" href="style.css">
+<style>
+body{
+    font-family: Arial, sans-serif;
+    text-align:center;
+    background:#f2f2f2;
+}
+
+.container{
+    width:350px;
+    margin:40px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px #ccc;
+}
+
+button{
+    width:90%;
+    padding:10px;
+    margin:10px;
+    border:none;
+    border-radius:5px;
+    background:green;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
 
-    <h1>❤️ जोडीदार</h1>
+<h2>जोडीदार प्रोजेक्ट</h2>
 
-    <h3>आपले स्वागत आहे</h3>
+<h3 id="welcome"></h3>
 
-    <p>
-        User ID :
-        <span id="userId"></span>
-    </p>
+<button onclick="window.location.href='Search.html'">
+जोडीदार शोधा
+</button>
 
-    <hr>
-
-    <button onclick="window.location.href='profile.html'">
-        👤 माझे प्रोफाइल
-    </button>
-
-    <br><br>
-
-    <button onclick="window.location.href='search.html'">
-        🔍 जोडीदार शोधा
-    </button>
-
-    <br><br>
-
-    <button onclick="window.location.href='matches.html'">
-        ❤️ जुळलेल्या प्रोफाइल
-    </button>
-
-    <br><br>
-
-    <button onclick="window.location.href='payment.html'">
-        💳 पेमेंट
-    </button>
-
-    <br><br>
-
-    <button onclick="logout()">
-        🚪 Logout
-    </button>
+<button onclick="logout()">
+लॉगआउट
+</button>
 
 </div>
 
-<script type="module" src="home.js"></script>
+<script>
+let user = JSON.parse(localStorage.getItem("currentUser"));
+
+if(user){
+    document.getElementById("welcome").innerHTML =
+    "स्वागत आहे, " + user.name;
+}else{
+    window.location.href="Login.html";
+}
+
+function logout(){
+    localStorage.removeItem("currentUser");
+    window.location.href="Login.html";
+}
+</script>
 
 </body>
 </html>
