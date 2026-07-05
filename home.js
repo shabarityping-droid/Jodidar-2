@@ -1,62 +1,46 @@
-// home.js
-
-import { auth, db } from "./firebase.js";
+import { db } from "./firebase.js";
 import {
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-  doc,
-  getDoc
+    doc,
+    getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Login तपासा
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
+const userId = localStorage.getItem("userId");
+
+if (!userId) {
     window.location.href = "login.html";
-    return;
-  }
+}
 
-  try {
-    const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
+// User ID दाखवा
+document.getElementById("userId").textContent = userId;
 
-    if (docSnap.exists()) {
-      const data = docSnap.data();
+// Firestore मधून माहिती आणा
+async function loadUser() {
+    try {
+        const userRef = doc(db, "users", userId);
+        const userSnap = await getDoc(userRef);
 
-      const name = document.getElementById("userName");
-      const mobile = document.getElementById("userMobile");
+        if (userSnap.exists()) {
+            const data = userSnap.data();
 
-      if (name) {
-        name.textContent = data.name || "";
-      }
+            console.log("User Data:", data);
 
-      if (mobile) {
-        mobile.textContent = data.mobile || "";
-      }
+            // इतर माहिती दाखवायची असल्यास येथे वापरा
+            // उदा.
+            // document.getElementById("name").textContent = data.name || "";
+        } else {
+            alert("User माहिती उपलब्ध नाही.");
+        }
+    } catch (error) {
+        console.error(error);
+        alert("माहिती लोड करण्यात अडचण आली.");
     }
-  } catch (error) {
-    console.error(error);
-    alert("माहिती लोड झाली नाही.");
-  }
-});
+}
+
+loadUser();
 
 // Logout
-const logoutBtn = document.getElementById("logoutBtn");
-
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", async () => {
-    await signOut(auth);
+window.logout = function () {
+    localStorage.removeItem("userId");
     window.location.href = "login.html";
-  });
-}
-
-// PDF Download
-const pdfBtn = document.getElementById("pdfBtn");
-
-if (pdfBtn) {
-  pdfBtn.addEventListener("click", () => {
-    window.open("files/info.pdf", "_blank");
-  });
-}
+};
