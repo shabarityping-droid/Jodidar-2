@@ -1,62 +1,65 @@
-
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>माझे प्रोफाइल - Jodidar</title>
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>माझे प्रोफाइल - Jodidar</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header>
-    <h1>Jodidar</h1>
-</header>
+<h2>माझे प्रोफाइल</h2>
 
-<div class="container">
+<form id="profileForm">
 
-    <h2>माझे प्रोफाइल</h2>
+  <label>पूर्ण नाव</label><br>
+  <input type="text" id="name" required><br><br>
 
-    <form id="profileForm">
+  <label>मोबाईल नंबर</label><br>
+  <input type="text" id="mobile" required><br><br>
 
-        <label>पूर्ण नाव</label>
-        <input type="text" id="name" placeholder="तुमचे नाव">
+  <label>वय</label><br>
+  <input type="number" id="age"><br><br>
 
-        <label>मोबाईल नंबर</label>
-        <input type="text" id="mobile" placeholder="मोबाईल नंबर">
+  <label>जिल्हा</label><br>
+  <input type="text" id="district"><br><br>
 
-        <label>वय</label>
-        <input type="number" id="age" placeholder="वय">
+  <label>शिक्षण</label><br>
+  <input type="text" id="education"><br><br>
 
-        <label>जिल्हा</label>
-        <input type="text" id="district" placeholder="जिल्हा">
+  <label>व्यवसाय</label><br>
+  <input type="text" id="occupation"><br><br>
 
-        <label>शिक्षण</label>
-        <input type="text" id="education" placeholder="शिक्षण">
+  <button type="submit">Save Profile</button>
 
-        <label>व्यवसाय</label>
-        <input type="text" id="occupation" placeholder="व्यवसाय">
+</form>
 
-        <button type="submit">Save Profile</button>
+<br>
 
-    </form>
-
-    <br>
-
-    <button onclick="location.href='index.html'">
-        Home
-    </button>
-
-</div>
+<button onclick="location.href='index.html'">
+Home
+</button>
 
 <script src="firebase.js"></script>
 
 <script>
 document.getElementById("profileForm").addEventListener("submit", function(e){
+
     e.preventDefault();
 
-    alert("Profile Save करण्यासाठी पुढील टप्प्यात Firebase Database जोडू.");
+    const profile = {
+        name: document.getElementById("name").value,
+        mobile: document.getElementById("mobile").value,
+        age: document.getElementById("age").value,
+        district: document.getElementById("district").value,
+        education: document.getElementById("education").value,
+        occupation: document.getElementById("occupation").value
+    };
+
+    localStorage.setItem("profile", JSON.stringify(profile));
+
+    alert("प्रोफाइल यशस्वीरित्या सेव्ह झाले.");
 
 });
 </script>
