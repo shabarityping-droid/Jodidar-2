@@ -1,26 +1,46 @@
-// register.js
+import { db } from "./firebase";
+import {
+  collection,
+  addDoc,
+  serverTimestamp
+} from "firebase/firestore";
 
-const registerForm = document.getElementById("registerForm");
+export async function registerUser(userData) {
+  try {
+    // Customer ID तयार करा
+    const customerId = "JD" + Date.now();
 
-registerForm.addEventListener("submit", function (e) {
-    e.preventDefault();
+    const newUser = {
+      customerId: customerId,
+      fullName: userData.fullName,
+      mobile: userData.mobile,
+      gender: userData.gender,
+      age: userData.age,
+      religion: userData.religion,
+      caste: userData.caste,
+      education: userData.education,
+      occupation: userData.occupation,
+      address: userData.address,
 
-    const name = document.getElementById("name").value.trim();
-    const password = document.getElementById("password").value;
+      horoscope: userData.horoscope || "",
 
-    if (!name || !password) {
-        alert("सर्व माहिती भरा.");
-        return;
-    }
+      photo1: userData.photo1 || "",
+      photo2: userData.photo2 || "",
+      photo3: userData.photo3 || "",
 
-    const user = {
-        name: name,
-        password: password
+      membership: "Free",
+      paymentStatus: "Pending",
+      approved: false,
+
+      createdAt: serverTimestamp()
     };
 
-    localStorage.setItem("jodidarUser", JSON.stringify(user));
+    await addDoc(collection(db, "users"), newUser);
 
-    alert("Registration Successful!");
+    alert("Registration Successful\nCustomer ID : " + customerId);
 
-    window.location.href = "login.html";
-});
+  } catch (error) {
+    console.error(error);
+    alert("Registration Failed");
+  }
+}
