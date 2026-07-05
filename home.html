@@ -1,1 +1,91 @@
 
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jodidar - Home</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f5f5f5;
+            margin:0;
+            padding:20px;
+        }
+
+        .box{
+            max-width:500px;
+            margin:auto;
+            background:#fff;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,.2);
+        }
+
+        h2{
+            text-align:center;
+            color:#d81b60;
+        }
+
+        p{
+            font-size:18px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            margin-top:10px;
+            border:none;
+            border-radius:5px;
+            background:#d81b60;
+            color:white;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#ad1457;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Jodidar मध्ये स्वागत आहे</h2>
+
+<p><b>नाव :</b> <span id="name"></span></p>
+
+<p><b>Customer ID :</b> <span id="customerId"></span></p>
+
+<p><b>Mobile :</b> <span id="mobile"></span></p>
+
+<button onclick="logout()">Logout</button>
+
+</div>
+
+<script>
+
+document.getElementById("name").innerHTML =
+localStorage.getItem("name");
+
+document.getElementById("customerId").innerHTML =
+localStorage.getItem("customerId");
+
+document.getElementById("mobile").innerHTML =
+localStorage.getItem("mobile");
+
+function logout(){
+
+localStorage.clear();
+
+window.location.href="login.html";
+
+}
+
+</script>
+
+</body>
+</html>
