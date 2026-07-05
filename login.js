@@ -1,55 +1,57 @@
-import { db } from "./firebase.js";
+// login.js
 
+import { auth } from "./firebase.js";
 import {
-  collection,
-  query,
-  where,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  signInWithEmailAndPassword,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-window.loginUser = async function () {
-
-  const customerId = document.getElementById("customerId").value.trim();
-  const mobile = document.getElementById("mobile").value.trim();
-
-  if (!customerId || !mobile) {
-    alert("Customer ID आणि Mobile Number भरा.");
-    return;
+// जर आधीच लॉगिन असेल तर Home वर पाठवा
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    window.location.href = "home.html";
   }
+});
+
+const loginForm = document.getElementById("loginForm");
+
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
 
   try {
+    await signInWithEmailAndPassword(auth, email, password);
 
-    const q = query(
-      collection(db, "users"),
-      where("customerId", "==", customerId),
-      where("mobile", "==", mobile)
-    );
+    alert("Login Successful!");
 
-    const snapshot = await getDocs(q);
-
-    if (snapshot.empty) {
-      alert("Customer ID किंवा Mobile Number चुकीचा आहे.");
-      return;
-    }
-
-    const user = snapshot.docs[0].data();
-
-    if (user.approved !== true) {
-      alert("तुमचे प्रोफाइल अजून Admin ने Approve केलेले नाही.");
-      return;
-    }
-
-    localStorage.setItem("customerId", user.customerId);
-    localStorage.setItem("mobile", user.mobile);
-    localStorage.setItem("name", user.fullName || "");
-
-    alert("Login Successful");
-
-    window.location.replace("home.html");
+    window.location.href = "home.html";
 
   } catch (error) {
-    console.error(error);
-    alert("Login Failed. पुन्हा प्रयत्न करा.");
-  }
+    switch (error.code) {
+      case "auth/invalid-credential":
+        alert("ईमेल किंवा पासवर्ड चुकीचा आहे.");
+        break;
 
-};
+      case "auth/user-not-found":
+        alert("हा वापरकर्ता नोंदणीकृत नाही.");
+        break;
+
+      case "auth/wrong-password":
+        alert("पासवर्ड चुकीचा आहे.");
+        break;
+
+      case "auth/invalid-email":
+        alert("ईमेल चुकीचा आहे.");
+        break;
+
+      case "auth/too-many-requests":
+        alert("खूप प्रयत्न झाले आहेत. कृपया नंतर पुन्हा प्रयत्न करा.");
+        break;
+
+      default:
+        alert(error.message);
+    }
+  }
+});
