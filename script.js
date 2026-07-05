@@ -1,67 +1,80 @@
-import { auth } from "./firebase.js";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+// script.js
 
-// Register
-const registerForm = document.getElementById("registerForm");
+// नोंदणी
+function register() {
+    let name = document.getElementById("name").value.trim();
+    let mobile = document.getElementById("mobile").value.trim();
+    let village = document.getElementById("village").value.trim();
 
-if (registerForm) {
-  registerForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+    if (name === "" || mobile === "" || village === "") {
+        alert("कृपया सर्व माहिती भरा.");
+        return;
+    }
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        alert("Registration Successful!");
-        window.location.href = "login.html";
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  });
-}
-
-// Login
-const loginForm = document.getElementById("loginForm");
-
-if (loginForm) {
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        alert("Login Successful!");
-        window.location.href = "dashboard.html";
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  });
-}
-
-// Logout
-const logoutBtn = document.getElementById("logoutBtn");
-
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
-    signOut(auth).then(() => {
-      window.location.href = "login.html";
+    users.push({
+        name: name,
+        mobile: mobile,
+        village: village
     });
-  });
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("नोंदणी यशस्वी!");
+
+    window.location.href = "Login.html";
 }
 
-// Check Login Status
-onAuthStateChanged(auth, (user) => {
-  if (document.getElementById("userEmail") && user) {
-    document.getElementById("userEmail").textContent = user.email;
-  }
-});
+// लॉगिन
+function login() {
+    let mobile = document.getElementById("mobile").value.trim();
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let user = users.find(u => u.mobile === mobile);
+
+    if (user) {
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        alert("लॉगिन यशस्वी!");
+        window.location.href = "Home.html";
+    } else {
+        alert("मोबाईल नंबर सापडला नाही.");
+    }
+}
+
+// लॉगआउट
+function logout() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "Login.html";
+}
+
+// शोध
+function searchUser() {
+    let text = document.getElementById("search").value.toLowerCase();
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let html = "";
+
+    users.forEach(function(user) {
+        if (
+            user.name.toLowerCase().includes(text) ||
+            user.village.toLowerCase().includes(text)
+        ) {
+            html += `
+                <div class="card">
+                    <b>नाव:</b> ${user.name}<br>
+                    <b>मोबाईल:</b> ${user.mobile}<br>
+                    <b>गाव:</b> ${user.village}
+                </div>
+            `;
+        }
+    });
+
+    if (html === "") {
+        html = "<p>कोणतीही नोंद सापडली नाही.</p>";
+    }
+
+    document.getElementById("result").innerHTML = html;
+}
