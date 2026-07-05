@@ -3,13 +3,13 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-aut
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "तुमच्या स्क्रीनशॉटमधील apiKey",
+  apiKey: "तुमच्या स्क्रीनवरील apiKey",
   authDomain: "jodidar-3ea53.firebaseapp.com",
   projectId: "jodidar-3ea53",
   storageBucket: "jodidar-3ea53.firebasestorage.app",
   messagingSenderId: "1059717419145",
   appId: "1:1059717419145:web:ee77586d288c0d2853f658",
-  measurementId: "G-5F5END7QX"
+  measurementId: "G-5F5E5ND7QX"
 };
 
 const app = initializeApp(firebaseConfig);
