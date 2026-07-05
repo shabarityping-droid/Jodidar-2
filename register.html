@@ -3,65 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jodidar - Register</title>
+    <title>Register</title>
 
     <link rel="stylesheet" href="style.css">
-
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 </head>
-
 <body>
 
 <div class="container">
 
-    <h2>नोंदणी करा</h2>
+    <h2>नवीन नोंदणी</h2>
 
-    <form id="registerForm">
+    <input
+        type="text"
+        id="userId"
+        placeholder="मोबाईल नंबर / User ID"
+        maxlength="10"
+    >
 
-        <input
-            type="text"
-            id="name"
-            placeholder="पूर्ण नाव"
-            required
-        >
+    <button id="registerBtn">
+        Register
+    </button>
 
-        <input
-            type="email"
-            id="email"
-            placeholder="ईमेल"
-            required
-        >
+    <br><br>
 
-        <input
-            type="password"
-            id="password"
-            placeholder="पासवर्ड"
-            required
-        >
-
-        <button type="submit">
-            Register
-        </button>
-
-    </form>
-
-    <p id="message"></p>
-
-    <p>
-        आधीच खाते आहे?
-        <a href="login.html">Login</a>
-    </p>
+    <a href="login.html">
+        आधीच नोंदणी केली आहे? Login
+    </a>
 
 </div>
 
-<!-- Firebase Config -->
-<script src="firebase.js"></script>
-
-<!-- Register JS -->
-<script src="register.js"></script>
+<script type="module" src="register.js"></script>
 
 </body>
 </html>
