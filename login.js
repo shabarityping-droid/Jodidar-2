@@ -1,4 +1,5 @@
 import { db } from "./firebase.js";
+
 import {
   collection,
   query,
@@ -8,50 +9,47 @@ import {
 
 window.loginUser = async function () {
 
-    const customerId = document.getElementById("customerId").value.trim();
-    const mobile = document.getElementById("mobile").value.trim();
+  const customerId = document.getElementById("customerId").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
 
-    if (customerId === "" || mobile === "") {
-        alert("Customer ID आणि Mobile Number भरा.");
-        return;
+  if (!customerId || !mobile) {
+    alert("Customer ID आणि Mobile Number भरा.");
+    return;
+  }
+
+  try {
+
+    const q = query(
+      collection(db, "users"),
+      where("customerId", "==", customerId),
+      where("mobile", "==", mobile)
+    );
+
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      alert("Customer ID किंवा Mobile Number चुकीचा आहे.");
+      return;
     }
 
-    try {
+    const user = snapshot.docs[0].data();
 
-        const q = query(
-            collection(db, "users"),
-            where("customerId", "==", customerId),
-            where("mobile", "==", mobile)
-        );
-
-        const querySnapshot = await getDocs(q);
-
-        if (querySnapshot.empty) {
-            alert("Customer ID किंवा Mobile Number चुकीचा आहे.");
-            return;
-        }
-
-        const user = querySnapshot.docs[0].data();
-
-        if (user.approved === false) {
-            alert("तुमचे प्रोफाइल Admin Approval साठी प्रलंबित आहे.");
-            return;
-        }
-
-        localStorage.setItem("customerId", user.customerId);
-        localStorage.setItem("mobile", user.mobile);
-        localStorage.setItem("name", user.fullName);
-
-        alert("Login Successful");
-
-        window.location.href = "home.html";
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert("Login Failed. पुन्हा प्रयत्न करा.");
-
+    if (user.approved !== true) {
+      alert("तुमचे प्रोफाइल अजून Admin ने Approve केलेले नाही.");
+      return;
     }
+
+    localStorage.setItem("customerId", user.customerId);
+    localStorage.setItem("mobile", user.mobile);
+    localStorage.setItem("name", user.fullName || "");
+
+    alert("Login Successful");
+
+    window.location.replace("home.html");
+
+  } catch (error) {
+    console.error(error);
+    alert("Login Failed. पुन्हा प्रयत्न करा.");
+  }
 
 };
