@@ -1,89 +1,71 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jodidar - Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jodidar - Home</title>
 
-  <link rel="stylesheet" href="style.css">
-
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial,sans-serif;
-    }
-
-    body{
-      background:#f5f5f5;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      min-height:100vh;
-    }
-
-    .box{
-      width:90%;
-      max-width:450px;
-      background:#fff;
-      padding:25px;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,0.2);
-      text-align:center;
-    }
-
-    h2{
-      color:#d81b60;
-      margin-bottom:20px;
-    }
-
-    p{
-      font-size:18px;
-      margin:12px 0;
-      text-align:left;
-    }
-
-    span{
-      font-weight:bold;
-      color:#333;
-    }
-
-    button{
-      width:100%;
-      padding:12px;
-      margin-top:20px;
-      border:none;
-      border-radius:6px;
-      background:#d81b60;
-      color:#fff;
-      font-size:16px;
-      cursor:pointer;
-    }
-
-    button:hover{
-      background:#ad1457;
-    }
-  </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="box">
+<div class="container">
 
-<h2>💞 Jodidar मध्ये स्वागत आहे</h2>
+    <h1>❤️ जोडीदार</h1>
 
-<p><strong>नाव :</strong> <span id="name">Loading...</span></p>
+    <h3>आपले स्वागत आहे</h3>
 
-<p><strong>Customer ID :</strong> <span id="customerId">Loading...</span></p>
+    <p>
+        User ID :
+        <span id="userId"></span>
+    </p>
 
-<p><strong>मोबाईल :</strong> <span id="mobile">Loading...</span></p>
+    <hr>
 
-<button id="logoutBtn">Logout</button>
+    <button onclick="window.location.href='profile.html'">
+        👤 माझे प्रोफाइल
+    </button>
+
+    <br><br>
+
+    <button onclick="window.location.href='search.html'">
+        🔍 जोडीदार शोधा
+    </button>
+
+    <br><br>
+
+    <button onclick="window.location.href='matches.html'">
+        ❤️ जुळलेल्या प्रोफाइल
+    </button>
+
+    <br><br>
+
+    <button onclick="window.location.href='payment.html'">
+        💳 पेमेंट
+    </button>
+
+    <br><br>
+
+    <button onclick="logout()">
+        🚪 Logout
+    </button>
 
 </div>
 
-<script type="module" src="home.js"></script>
+<script>
+const userId = localStorage.getItem("userId");
+
+if (!userId) {
+    window.location.href = "login.html";
+}
+
+document.getElementById("userId").textContent = userId;
+
+function logout() {
+    localStorage.removeItem("userId");
+    window.location.href = "login.html";
+}
+</script>
 
 </body>
 </html>
