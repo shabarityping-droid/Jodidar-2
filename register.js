@@ -1,46 +1,58 @@
-import { db } from "./firebase";
+import { db } from "./firebase.js";
+
 import {
   collection,
   addDoc,
-  serverTimestamp
-} from "firebase/firestore";
+  query,
+  where,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-export async function registerUser(userData) {
+const registerForm = document.getElementById("registerForm");
+
+registerForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const customerId = document.getElementById("customerId").value.trim();
+  const name = document.getElementById("name").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
+
+  if (!customerId || !name || !mobile) {
+    alert("सर्व माहिती भरा.");
+    return;
+  }
+
   try {
-    // Customer ID तयार करा
-    const customerId = "JD" + Date.now();
+    // Customer ID आधीपासून आहे का ते तपासा
+    const q = query(
+      collection(db, "customers"),
+      where("customerId", "==", customerId)
+    );
 
-    const newUser = {
+    const result = await getDocs(q);
+
+    if (!result.empty) {
+      alert("हा Customer ID आधीच वापरला आहे.");
+      return;
+    }
+
+    // नवीन ग्राहक सेव्ह करा
+    await addDoc(collection(db, "customers"), {
       customerId: customerId,
-      fullName: userData.fullName,
-      mobile: userData.mobile,
-      gender: userData.gender,
-      age: userData.age,
-      religion: userData.religion,
-      caste: userData.caste,
-      education: userData.education,
-      occupation: userData.occupation,
-      address: userData.address,
+      name: name,
+      mobile: mobile,
+      createdAt: new Date()
+    });
 
-      horoscope: userData.horoscope || "",
+    alert("नोंदणी यशस्वी झाली.");
 
-      photo1: userData.photo1 || "",
-      photo2: userData.photo2 || "",
-      photo3: userData.photo3 || "",
+    registerForm.reset();
 
-      membership: "Free",
-      paymentStatus: "Pending",
-      approved: false,
-
-      createdAt: serverTimestamp()
-    };
-
-    await addDoc(collection(db, "users"), newUser);
-
-    alert("Registration Successful\nCustomer ID : " + customerId);
+    // Login Page
+    window.location.href = "login.html";
 
   } catch (error) {
     console.error(error);
-    alert("Registration Failed");
+    alert("नोंदणी अयशस्वी.");
   }
-}
+});
