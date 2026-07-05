@@ -1,29 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>नोंदणी</title>
 </head>
+
 <body>
 
-<h2>Register</h2>
+<h2>Jodidar Registration</h2>
 
-<input type="text" id="name" placeholder="Full Name"><br><br>
+<form id="registerForm">
 
-<input type="tel" id="phone" placeholder="+91XXXXXXXXXX"><br><br>
+<label>Customer ID</label><br>
+<input type="text" id="customerId" required><br><br>
 
-<button id="sendOtp">Send OTP</button>
+<label>पूर्ण नाव</label><br>
+<input type="text" id="name" required><br><br>
 
-<br><br>
+<label>मोबाईल नंबर</label><br>
+<input type="tel" id="phone" maxlength="10" required><br><br>
 
-<input type="text" id="otp" placeholder="Enter OTP"><br><br>
+<button type="submit">नोंदणी करा</button>
 
-<button id="verifyOtp">Verify & Register</button>
+</form>
 
-<div id="recaptcha-container"></div>
-
-<script type="module" src="register.js"></script>
+<script src="register.js"></script>
 
 </body>
 </html>
