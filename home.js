@@ -11,45 +11,52 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const nameEl = document.getElementById("name");
-const customerIdEl = document.getElementById("customerId");
-const mobileEl = document.getElementById("mobile");
-
+// Login तपासा
 onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
 
-    if (!user) {
-        window.location.href = "login.html";
-        return;
+  try {
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+
+      const name = document.getElementById("userName");
+      const mobile = document.getElementById("userMobile");
+
+      if (name) {
+        name.textContent = data.name || "";
+      }
+
+      if (mobile) {
+        mobile.textContent = data.mobile || "";
+      }
     }
-
-    try {
-
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-
-            const data = docSnap.data();
-
-            nameEl.textContent = data.name || "";
-            customerIdEl.textContent = data.customerId || "";
-            mobileEl.textContent = data.mobile || "";
-
-        } else {
-
-            nameEl.textContent = "डेटा मिळाला नाही";
-        }
-
-    } catch (e) {
-
-        console.log(e);
-    }
-
+  } catch (error) {
+    console.error(error);
+    alert("माहिती लोड झाली नाही.");
+  }
 });
 
-document.getElementById("logoutBtn").addEventListener("click", async () => {
+// Logout
+const logoutBtn = document.getElementById("logoutBtn");
 
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
     await signOut(auth);
     window.location.href = "login.html";
+  });
+}
 
-});
+// PDF Download
+const pdfBtn = document.getElementById("pdfBtn");
+
+if (pdfBtn) {
+  pdfBtn.addEventListener("click", () => {
+    window.open("files/info.pdf", "_blank");
+  });
+}
