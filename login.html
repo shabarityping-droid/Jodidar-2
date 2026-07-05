@@ -3,50 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jodidar - Login</title>
+    <title>Login - Jodidar</title>
 
     <link rel="stylesheet" href="style.css">
-
-    <!-- Firebase SDK -->
-    <script type="module" src="firebase.js"></script>
 </head>
-
 <body>
 
 <div class="container">
 
-    <h2>🔐 Login</h2>
+    <h2>लॉगिन</h2>
 
-    <form id="loginForm">
+    <input
+        type="text"
+        id="userId"
+        placeholder="तुमचा User ID टाका"
+        maxlength="10"
+        autocomplete="off"
+    >
 
-        <input
-            type="email"
-            id="email"
-            placeholder="Email"
-            required
-        >
+    <br><br>
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            required
-        >
+    <button id="loginBtn">
+        Login
+    </button>
 
-        <button type="submit">
-            Login
-        </button>
-
-    </form>
-
-    <br>
+    <br><br>
 
     <p>
-        नवीन खाते नाही?
-        <a href="register.html">Register</a>
+        खाते नाही?
+        <a href="register.html">नवीन नोंदणी करा</a>
     </p>
-
-    <p id="message"></p>
 
 </div>
 
