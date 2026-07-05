@@ -1,87 +1,89 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jodidar - Home</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jodidar - Home</title>
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial,sans-serif;
-        }
+  <link rel="stylesheet" href="style.css">
 
-        body{
-            background:#f5f5f5;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            min-height:100vh;
-        }
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial,sans-serif;
+    }
 
-        .box{
-            width:90%;
-            max-width:450px;
-            background:#fff;
-            padding:25px;
-            border-radius:10px;
-            box-shadow:0 0 10px rgba(0,0,0,.2);
-            text-align:center;
-        }
+    body{
+      background:#f5f5f5;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+    }
 
-        h2{
-            color:#d81b60;
-            margin-bottom:20px;
-        }
+    .box{
+      width:90%;
+      max-width:450px;
+      background:#fff;
+      padding:25px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.2);
+      text-align:center;
+    }
 
-        p{
-            font-size:18px;
-            margin:12px 0;
-            text-align:left;
-        }
+    h2{
+      color:#d81b60;
+      margin-bottom:20px;
+    }
 
-        span{
-            font-weight:bold;
-            color:#333;
-        }
+    p{
+      font-size:18px;
+      margin:12px 0;
+      text-align:left;
+    }
 
-        button{
-            width:100%;
-            padding:12px;
-            margin-top:20px;
-            border:none;
-            border-radius:6px;
-            background:#d81b60;
-            color:#fff;
-            font-size:16px;
-            cursor:pointer;
-        }
+    span{
+      font-weight:bold;
+      color:#333;
+    }
 
-        button:hover{
-            background:#ad1457;
-        }
-    </style>
+    button{
+      width:100%;
+      padding:12px;
+      margin-top:20px;
+      border:none;
+      border-radius:6px;
+      background:#d81b60;
+      color:#fff;
+      font-size:16px;
+      cursor:pointer;
+    }
+
+    button:hover{
+      background:#ad1457;
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="box">
 
-    <h2>Jodidar मध्ये स्वागत आहे</h2>
+<h2>💞 Jodidar मध्ये स्वागत आहे</h2>
 
-    <p><strong>नाव :</strong> <span id="name">Loading...</span></p>
+<p><strong>नाव :</strong> <span id="name">Loading...</span></p>
 
-    <p><strong>Customer ID :</strong> <span id="customerId">Loading...</span></p>
+<p><strong>Customer ID :</strong> <span id="customerId">Loading...</span></p>
 
-    <p><strong>Mobile :</strong> <span id="mobile">Loading...</span></p>
+<p><strong>मोबाईल :</strong> <span id="mobile">Loading...</span></p>
 
-    <button id="logoutBtn">Logout</button>
+<button id="logoutBtn">Logout</button>
 
 </div>
 
-<script src="home.js"></script>
+<script type="module" src="home.js"></script>
 
 </body>
 </html>
