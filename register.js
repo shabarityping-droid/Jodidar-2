@@ -1,49 +1,34 @@
-import { auth, db } from "./firebase.js";
+import { db } from "./firebase.js";
 
 import {
-  createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-  doc,
-  setDoc
+    doc,
+    getDoc,
+    setDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const registerForm = document.getElementById("registerForm");
+const registerBtn = document.getElementById("registerBtn");
 
-registerForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+registerBtn.addEventListener("click", async () => {
 
-    const fullName = document.getElementById("fullName").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const mobile = document.getElementById("mobile").value.trim();
-    const password = document.getElementById("password").value;
+    const userId = document.getElementById("userId").value.trim();
 
-    if (!fullName || !email || !mobile || !password) {
-        alert("सर्व माहिती भरा.");
-        return;
-    }
-
-    if (password.length < 6) {
-        alert("Password किमान 6 अक्षरांचा असावा.");
+    if (userId === "") {
+        alert("User ID टाका.");
         return;
     }
 
     try {
 
-        const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+        const userRef = doc(db, "users", userId);
+        const userSnap = await getDoc(userRef);
 
-        const user = userCredential.user;
+        if (userSnap.exists()) {
+            alert("ही User ID आधीच नोंदणीकृत आहे.");
+            return;
+        }
 
-        await setDoc(doc(db, "users", user.uid), {
-            uid: user.uid,
-            fullName: fullName,
-            email: email,
-            mobile: mobile,
+        await setDoc(userRef, {
+            userId: userId,
             createdAt: new Date().toISOString()
         });
 
@@ -52,18 +37,8 @@ registerForm.addEventListener("submit", async (e) => {
         window.location.href = "login.html";
 
     } catch (error) {
-
-        if (error.code === "auth/email-already-in-use") {
-            alert("हा Email आधीच नोंदणीकृत आहे.");
-        } else if (error.code === "auth/invalid-email") {
-            alert("Email चुकीचा आहे.");
-        } else if (error.code === "auth/weak-password") {
-            alert("Password खूप कमजोर आहे.");
-        } else {
-            alert(error.message);
-        }
-
         console.error(error);
+        alert("नोंदणी अयशस्वी.");
     }
 
 });
