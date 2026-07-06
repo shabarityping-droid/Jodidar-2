@@ -1,57 +1,148 @@
-
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matches - Jodidar</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jodidar - Matches</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+}
+
+header{
+    background:#e91e63;
+    color:#fff;
+    padding:15px;
+    text-align:center;
+}
+
+.container{
+    width:95%;
+    max-width:900px;
+    margin:auto;
+    padding:15px;
+}
+
+.card{
+    background:#fff;
+    border-radius:10px;
+    padding:15px;
+    margin-bottom:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.card h3{
+    margin:10px 0;
+}
+
+.card p{
+    margin:5px 0;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#e91e63;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#c2185b;
+}
+
+#matchesList{
+    margin-top:20px;
+}
+
+</style>
 </head>
+
 <body>
 
 <header>
-    <h1>❤️ Jodidar</h1>
+<h2>❤️ माझे Matches</h2>
 </header>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="search.html">Search</a>
-    <a href="profile.html">Profile</a>
-    <a href="contact.html">Contact</a>
-</nav>
+<div class="container">
 
-<main>
-    <h2>तुमच्यासाठी सुचवलेले प्रोफाइल</h2>
+<div id="matchesList">
+Loading...
+</div>
 
-    <div class="card">
-        <h3>अमोल</h3>
-        <p>वय: 28</p>
-        <p>शहर: पुणे</p>
-        <button>View Profile</button>
-    </div>
+</div>
 
-    <br>
+<script type="module">
+import { db } from "./firebase-config.js";
+import {
+ref,
+get
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    const matchesList = document.getElementById("matchesList");
 
-    <div class="card">
-        <h3>प्रिया</h3>
-        <p>वय: 26</p>
-        <p>शहर: नाशिक</p>
-        <button>View Profile</button>
-    </div>
+async function loadMatches(){
 
-    <br>
+    matchesList.innerHTML = "Loading...";
 
-    <div class="card">
-        <h3>रोहित</h3>
-        <p>वय: 30</p>
-        <p>शहर: मुंबई</p>
-        <button>View Profile</button>
-    </div>
-</main>
+    const snapshot = await get(ref(db,"users"));
 
-<footer>
-    <p>© 2026 Jodidar. All Rights Reserved.</p>
-</footer>
+    if(!snapshot.exists()){
+        matchesList.innerHTML = "<h3>No Matches Found</h3>";
+        return;
+    }
 
-</body>
-</html>
+    matchesList.innerHTML = "";
+
+    snapshot.forEach((child)=>{
+
+        const user = child.val();
+
+        matchesList.innerHTML += `
+
+        <div class="card">
+
+            <img src="${user.photo || 'https://via.placeholder.com/400x250'}">
+
+            <h3>${user.name || "No Name"}</h3>
+
+            <p><b>वय:</b> ${user.age || "-"}</p>
+
+            <p><b>लिंग:</b> ${user.gender || "-"}</p>
+
+            <p><b>शहर:</b> ${user.city || "-"}</p>
+
+            <button onclick="viewProfile('${child.key}')">
+                View Profile
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+window.viewProfile = function(id){
+    localStorage.setItem("viewUserId", id);
+    window.location.href = "profile.html";
+};
+
+loadMatches();
