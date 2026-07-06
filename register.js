@@ -1,44 +1,20 @@
-import { db } from "./firebase.js";
+import { auth } from "./firebase.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import {
-    doc,
-    getDoc,
-    setDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const form = document.getElementById("registerForm");
 
-const registerBtn = document.getElementById("registerBtn");
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-registerBtn.addEventListener("click", async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-    const userId = document.getElementById("userId").value.trim();
-
-    if (userId === "") {
-        alert("User ID टाका.");
-        return;
-    }
-
-    try {
-
-        const userRef = doc(db, "users", userId);
-        const userSnap = await getDoc(userRef);
-
-        if (userSnap.exists()) {
-            alert("ही User ID आधीच नोंदणीकृत आहे.");
-            return;
-        }
-
-        await setDoc(userRef, {
-            userId: userId,
-            createdAt: new Date().toISOString()
+    createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+            alert("Registration Successful");
+            window.location.href = "login.html";
+        })
+        .catch((error) => {
+            alert(error.message);
         });
-
-        alert("नोंदणी यशस्वी झाली.");
-
-        window.location.href = "login.html";
-
-    } catch (error) {
-        console.error(error);
-        alert("नोंदणी अयशस्वी.");
-    }
-
 });
