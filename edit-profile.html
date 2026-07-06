@@ -1,1 +1,169 @@
 
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Profile - Jodidar</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+}
+
+.container{
+    width:95%;
+    max-width:600px;
+    margin:20px auto;
+    background:#fff;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+h2{
+    text-align:center;
+    color:#e91e63;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:15px;
+}
+
+textarea{
+    resize:vertical;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    background:#e91e63;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#c2185b;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>प्रोफाइल संपादित करा</h2>
+
+<form id="editProfileForm">
+
+<label>पूर्ण नाव</label>
+<input type="text" id="name" placeholder="तुमचे नाव">
+
+<label>मोबाईल नंबर</label>
+<input type="tel" id="mobile" placeholder="9876543210">
+
+<label>जन्मतारीख</label>
+<input type="date" id="dob">
+
+<label>लिंग</label>
+<select id="gender">
+<option value="">निवडा</option>
+<option>पुरुष</option>
+<option>महिला</option>
+</select>
+
+<label>शिक्षण</label>
+<input type="text" id="education">
+
+<label>व्यवसाय</label>
+<input type="text" id="occupation">
+
+<label>वार्षिक उत्पन्न</label>
+<input type="text" id="income">
+
+<label>पत्ता</label>
+<textarea id="address" rows="3"></textarea>
+
+<label>स्वतःबद्दल</label>
+<textarea id="about" rows="4"></textarea>
+<label>जोडीदाराकडून अपेक्षा</label>
+<textarea id="partnerExpectation" rows="4"></textarea>
+
+<label>प्रोफाइल फोटो</label>
+<input type="file" id="profilePhoto" accept="image/*">
+
+<button type="submit">प्रोफाइल अपडेट करा</button>
+
+</form>
+
+<p id="message" style="text-align:center;color:green;margin-top:15px;"></p>
+
+</div>
+
+<script type="module">
+import { db } from "./firebase-config.js";
+import {
+    ref,
+    set
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const form = document.getElementById("editProfileForm");
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const mobile = document.getElementById("mobile").value;
+
+    const profileData = {
+        name: document.getElementById("name").value,
+        dob: document.getElementById("dob").value,
+        gender: document.getElementById("gender").value,
+        education: document.getElementById("education").value,
+        occupation: document.getElementById("occupation").value,
+        income: document.getElementById("income").value,
+        address: document.getElementById("address").value,
+        about: document.getElementById("about").value,
+        partnerExpectation: document.getElementById("partnerExpectation").value
+    };
+
+    set(ref(db, "users/" + mobile), profileData)
+    .then(() => {
+        document.getElementById("message").innerHTML =
+        "✅ प्रोफाइल यशस्वीरित्या अपडेट झाली.";
+    })
+    .catch((error) => {
+        document.getElementById("message").innerHTML =
+        "❌ Error : " + error.message;
+    });
+});
+</script>
+
+</body>
+</html>
