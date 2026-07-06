@@ -107,7 +107,7 @@ createdAt:Date.now()
 push(ref(db,"users"),data)
 .then(()=>{
 alert("नोंदणी यशस्वी!");
-window.location.href="login.html";
+window.location.href = "home.html";
 })
 .catch((err)=>{
 alert(err.message);
