@@ -6,7 +6,6 @@
   <title>माझे प्रोफाइल - Jodidar</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <h2>माझे प्रोफाइल</h2>
@@ -20,48 +19,74 @@
   <input type="text" id="mobile" required><br><br>
 
   <label>वय</label><br>
-  <input type="number" id="age"><br><br>
+  <input type="number" id="age" required><br><br>
 
   <label>जिल्हा</label><br>
-  <input type="text" id="district"><br><br>
+  <input type="text" id="district" required><br><br>
 
   <label>शिक्षण</label><br>
-  <input type="text" id="education"><br><br>
+  <input type="text" id="education" required><br><br>
 
   <label>व्यवसाय</label><br>
-  <input type="text" id="occupation"><br><br>
+  <input type="text" id="occupation" required><br><br>
 
-  <button type="submit">Save Profile</button>
+  <button type="submit">Profile Save</button>
 
 </form>
 
 <br>
 
-<button onclick="location.href='index.html'">
+<button onclick="location.href='home.html'">
 Home
 </button>
 
-<script src="firebase.js"></script>
+<script type="module">
 
-<script>
-document.getElementById("profileForm").addEventListener("submit", function(e){
+import {
+  db,
+  auth
+} from "./firebase.js";
 
-    e.preventDefault();
+import {
+  doc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    const profile = {
-        name: document.getElementById("name").value,
-        mobile: document.getElementById("mobile").value,
-        age: document.getElementById("age").value,
-        district: document.getElementById("district").value,
-        education: document.getElementById("education").value,
-        occupation: document.getElementById("occupation").value
-    };
+document.getElementById("profileForm").addEventListener("submit", async (e) => {
 
-    localStorage.setItem("profile", JSON.stringify(profile));
+  e.preventDefault();
+
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("कृपया प्रथम Login करा.");
+    return;
+  }
+
+  try {
+
+    await setDoc(doc(db, "profiles", user.uid), {
+
+      name: document.getElementById("name").value,
+      mobile: document.getElementById("mobile").value,
+      age: document.getElementById("age").value,
+      district: document.getElementById("district").value,
+      education: document.getElementById("education").value,
+      occupation: document.getElementById("occupation").value,
+      email: user.email
+
+    });
 
     alert("प्रोफाइल यशस्वीरित्या सेव्ह झाले.");
 
+  } catch (error) {
+
+    alert(error.message);
+
+  }
+
 });
+
 </script>
 
 </body>
