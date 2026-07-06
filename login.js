@@ -1,5 +1,3 @@
-// login.js
-
 import { db } from "./firebase.js";
 
 import {
@@ -12,46 +10,37 @@ import {
 const form = document.getElementById("loginForm");
 
 form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const mobile = document.getElementById("mobile").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
 
-    if (mobile.length !== 10) {
-        alert("योग्य 10 अंकी मोबाईल नंबर टाका.");
-        return;
+  if (mobile.length !== 10) {
+    alert("कृपया 10 अंकी मोबाईल नंबर टाका.");
+    return;
+  }
+
+  try {
+    const q = query(
+      collection(db, "users"),
+      where("mobile", "==", mobile)
+    );
+
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      alert("हा मोबाईल नंबर नोंदणीकृत नाही.");
+      return;
     }
 
-    try {
+    // Login Success
+    localStorage.setItem("mobile", mobile);
 
-        const q = query(
-            collection(db, "users"),
-            where("mobile", "==", mobile)
-        );
+    alert("Login यशस्वी.");
 
-        const snapshot = await getDocs(q);
+    window.location.replace("home.html");
 
-        if (snapshot.empty) {
-            alert("हा मोबाईल नंबर नोंदणीकृत नाही.");
-            return;
-        }
-
-        const user = snapshot.docs[0].data();
-
-        // Admin ने Confirm केले आहे का?
-        if (user.approved !== true) {
-            alert("तुमचे खाते अजून Admin ने Confirm केलेले नाही. कृपया फोनची वाट पहा.");
-            return;
-        }
-
-        // मोबाईल नंबर सेव्ह करा
-        localStorage.setItem("mobile", mobile);
-
-        alert("Login यशस्वी.");
-
-        window.location.href = "home.html";
-
-    } catch (error) {
-        console.error(error);
-        alert("Login करताना त्रुटी आली.");
-    }
+  } catch (error) {
+    console.error(error);
+    alert("Login करताना त्रुटी आली.");
+  }
 });
