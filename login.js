@@ -1,42 +1,20 @@
-import { db } from "./firebase.js";
+import { auth } from "./firebase.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import {
-    doc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const form = document.getElementById("loginForm");
 
-const loginBtn = document.getElementById("loginBtn");
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-loginBtn.addEventListener("click", async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-    const userId = document.getElementById("userId").value.trim();
-
-    if (userId === "") {
-        alert("User ID टाका.");
-        return;
-    }
-
-    try {
-
-        const userRef = doc(db, "users", userId);
-        const userSnap = await getDoc(userRef);
-
-        if (!userSnap.exists()) {
-            alert("ही User ID नोंदणीकृत नाही.");
-            return;
-        }
-
-        // User ID ब्राउझरमध्ये जतन करा
-        localStorage.setItem("userId", userId);
-
-        alert("लॉगिन यशस्वी.");
-
-        // पुढील पेज
-        window.location.href = "home.html";
-
-    } catch (error) {
-        console.error(error);
-        alert("लॉगिन अयशस्वी.");
-    }
-
+    signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+            alert("Login Successful");
+            window.location.href = "profile.html";
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
 });
