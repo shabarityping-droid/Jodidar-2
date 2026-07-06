@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Jodidar - Profile</title>
 
 <link rel="stylesheet" href="style.css">
@@ -11,8 +10,8 @@
 <style>
 body{
     margin:0;
-    font-family:Arial,sans-serif;
-    background:#f2f2f2;
+    font-family:Arial, sans-serif;
+    background:#f5f5f5;
 }
 
 .container{
@@ -21,7 +20,16 @@ body{
     background:#fff;
     padding:20px;
     border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.15);
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.profile-img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    margin:auto;
 }
 
 h2{
@@ -29,44 +37,25 @@ h2{
     color:#e91e63;
 }
 
-.profile-photo{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
-    display:block;
-    margin:15px auto;
-    border:3px solid #e91e63;
+.info{
+    margin-top:20px;
 }
 
-input, select, textarea{
-    width:100%;
+.info p{
     padding:10px;
-    margin-top:10px;
-    border:1px solid #ccc;
-    border-radius:6px;
-    box-sizing:border-box;
+    border-bottom:1px solid #ddd;
 }
 
-textarea{
-    resize:none;
-    height:80px;
-}
-
-button{
+.edit-btn{
     width:100%;
     padding:12px;
-    margin-top:15px;
     background:#e91e63;
-    color:#fff;
+    color:white;
     border:none;
     border-radius:6px;
     font-size:16px;
     cursor:pointer;
-}
-
-button:hover{
-    background:#c2185b;
+    margin-top:20px;
 }
 </style>
 
@@ -75,86 +64,58 @@ button:hover{
 
 <div class="container">
 
-<h2>माझे प्रोफाइल</h2>
+<img src="https://via.placeholder.com/120" class="profile-img" id="profileImage">
 
-<img src="https://via.placeholder.com/120" id="photo" class="profile-photo">
+<h2 id="name">पूर्ण नाव</h2>
 
-<input type="file" id="imageInput" accept="image/*">
+<div class="info">
+<p><strong>वय :</strong> <span id="age">25</span></p>
 
-<input type="text" id="name" placeholder="पूर्ण नाव">
+<p><strong>लिंग :</strong> <span id="gender">पुरुष</span></p>
 
-<input type="number" id="age" placeholder="वय">
+<p><strong>जिल्हा :</strong> <span id="district">पुणे</span></p>
 
-<select id="gender">
-<option value="">लिंग निवडा</option>
-<option>पुरुष</option>
-<option>महिला</option>
-</select>
+<p><strong>शिक्षण :</strong> <span id="education">Graduate</span></p>
 
-<input type="text" id="city" placeholder="शहर">
+<p><strong>व्यवसाय :</strong> <span id="occupation">Business</span></p>
 
-<input type="text" id="education" placeholder="शिक्षण">
+<p><strong>मोबाईल :</strong> <span id="mobile">9999999999</span></p>
 
-<input type="text" id="occupation" placeholder="व्यवसाय">
+<p><strong>वैवाहिक स्थिती :</strong> <span id="status">अविवाहित</span></p>
+</div>
 
-<textarea id="about" placeholder="स्वतःबद्दल"></textarea>
-
-<button onclick="saveProfile()">प्रोफाइल सेव्ह करा</button>
+<button class="edit-btn" onclick="location.href='edit-profile.html'">
+प्रोफाइल संपादित करा
+</button>
 
 </div>
 
 <script>
-const imageInput = document.getElementById("imageInput");
-const photo = document.getElementById("photo");
+const profile = JSON.parse(localStorage.getItem("profile"));
 
-imageInput.addEventListener("change",function(){
+if(profile){
 
-const file=this.files[0];
+document.getElementById("name").innerText = profile.name || "";
 
-if(file){
-photo.src=URL.createObjectURL(file);
-}
-});
+document.getElementById("age").innerText = profile.age || "";
 
-function saveProfile(){
+document.getElementById("gender").innerText = profile.gender || "";
 
-const profile={
-name:document.getElementById("name").value,
-age:document.getElementById("age").value,
-gender:document.getElementById("gender").value,
-city:document.getElementById("city").value,
-education:document.getElementById("education").value,
-occupation:document.getElementById("occupation").value,
-about:document.getElementById("about").value,
-photo:photo.src
-};
+document.getElementById("district").innerText = profile.district || "";
 
-localStorage.setItem("profile",JSON.stringify(profile));
+document.getElementById("education").innerText = profile.education || "";
 
-alert("प्रोफाइल यशस्वीरित्या सेव्ह झाले.");
-}
+document.getElementById("occupation").innerText = profile.occupation || "";
 
-window.onload=function(){
+document.getElementById("mobile").innerText = profile.mobile || "";
 
-const data=JSON.parse(localStorage.getItem("profile"));
+document.getElementById("status").innerText = profile.status || "";
 
-if(data){
-
-document.getElementById("name").value=data.name||"";
-document.getElementById("age").value=data.age||"";
-document.getElementById("gender").value=data.gender||"";
-document.getElementById("city").value=data.city||"";
-document.getElementById("education").value=data.education||"";
-document.getElementById("occupation").value=data.occupation||"";
-document.getElementById("about").value=data.about||"";
-
-if(data.photo){
-photo.src=data.photo;
+if(profile.image){
+document.getElementById("profileImage").src = profile.image;
 }
 
 }
-
-};
 </script>
 
 </body>
