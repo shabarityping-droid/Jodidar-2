@@ -8,25 +8,44 @@
 </head>
 <body>
 
-<h2>नवीन नोंदणी</h2>
+<div class="container">
+    <h2>नवीन प्रोफाइल नोंदणी</h2>
 
-<form>
+    <form id="registerForm">
 
-<input type="text" placeholder="पूर्ण नाव" required>
+        <input type="text" id="name" placeholder="पूर्ण नाव" required>
 
-<input type="tel" placeholder="मोबाईल नंबर" maxlength="10" required>
+        <input type="tel" id="mobile" placeholder="मोबाईल नंबर" maxlength="10" required>
 
-<input type="text" placeholder="गाव" required>
+        <input type="text" id="village" placeholder="गाव" required>
 
-<input type="password" placeholder="पासवर्ड" required>
+        <button type="submit">नोंदणी करा</button>
 
-<button type="submit">नोंदणी करा</button>
+    </form>
 
-</form>
+    <br>
 
-<br>
+    <a href="login.html">आधीच खाते आहे? लॉगिन करा</a>
 
-<a href="login.html">आधीच खाते आहे? लॉगिन करा</a>
+</div>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const user = {
+        name: document.getElementById("name").value,
+        mobile: document.getElementById("mobile").value,
+        village: document.getElementById("village").value
+    };
+
+    localStorage.setItem("user_" + user.mobile, JSON.stringify(user));
+
+    alert("नोंदणी यशस्वी!");
+
+    window.location.href = "login.html";
+});
+</script>
 
 </body>
 </html>
