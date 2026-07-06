@@ -1,101 +1,111 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Jodidar</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jodidar - Login</title>
 
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            background:#f2f2f2;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-            margin:0;
-        }
+<link rel="stylesheet" href="style.css">
 
-        .box{
-            width:90%;
-            max-width:350px;
-            background:#fff;
-            padding:20px;
-            border-radius:10px;
-            box-shadow:0 0 10px rgba(0,0,0,.2);
-        }
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f2f2f2;
+}
+.container{
+    width:90%;
+    max-width:350px;
+    margin:70px auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+h2{
+    text-align:center;
+    color:#e91e63;
+}
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:16px;
+    box-sizing:border-box;
+}
+button{
+    width:100%;
+    padding:12px;
+    background:#e91e63;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
+}
+button:hover{
+    background:#c2185b;
+}
+a{
+    display:block;
+    text-align:center;
+    margin-top:15px;
+    text-decoration:none;
+    color:#2196f3;
+}
+</style>
 
-        h2{
-            text-align:center;
-            margin-bottom:20px;
-        }
-
-        input{
-            width:100%;
-            padding:12px;
-            margin:10px 0;
-            border:1px solid #ccc;
-            border-radius:5px;
-            box-sizing:border-box;
-        }
-
-        button{
-            width:100%;
-            padding:12px;
-            background:#007bff;
-            color:white;
-            border:none;
-            border-radius:5px;
-            font-size:16px;
-            cursor:pointer;
-        }
-
-        button:hover{
-            background:#0056b3;
-        }
-
-        p{
-            text-align:center;
-            margin-top:15px;
-        }
-
-        a{
-            text-decoration:none;
-            color:blue;
-        }
-    </style>
 </head>
-
 <body>
 
-<div class="box">
+<div class="container">
 
-    <h2>Jodidar Login</h2>
+<h2>Login</h2>
 
-    <form id="loginForm">
+<input
+type="tel"
+id="mobile"
+placeholder="मोबाईल नंबर"
+maxlength="10">
 
-        <input
-            type="tel"
-            id="mobile"
-            placeholder="मोबाईल नंबर"
-            maxlength="10"
-            required
-        >
+<button onclick="loginUser()">Login</button>
 
-        <button type="submit">
-            Login
-        </button>
-
-    </form>
-
-    <p>
-        खाते नाही?
-        <a href="register.html">नोंदणी करा</a>
-    </p>
+<a href="register.html">नवीन नोंदणी करा</a>
 
 </div>
 
-<script type="module" src="login.js"></script>
+<script>
+
+function loginUser(){
+
+let mobile=document.getElementById("mobile").value.trim();
+
+if(mobile.length!=10){
+alert("योग्य 10 अंकी मोबाईल नंबर टाका.");
+return;
+}
+
+let users=JSON.parse(localStorage.getItem("users"))||[];
+
+let found=users.find(user=>user.mobile===mobile);
+
+if(found){
+
+localStorage.setItem("currentUser",JSON.stringify(found));
+
+window.location.href="home.html";
+
+}else{
+
+alert("हा मोबाईल नंबर नोंदणीकृत नाही.");
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
