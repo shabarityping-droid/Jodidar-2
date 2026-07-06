@@ -1,20 +1,35 @@
-import { auth } from "./firebase.js";
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  db,
+  collection,
+  addDoc
+} from "./firebase.js";
 
 const form = document.getElementById("registerForm");
 
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+  const name = document.getElementById("name").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
+  const age = document.getElementById("age").value.trim();
+  const gender = document.getElementById("gender").value;
+  const district = document.getElementById("district").value.trim();
 
-    createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            alert("Registration Successful");
-            window.location.href = "login.html";
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
+  try {
+    await addDoc(collection(db, "profiles"), {
+      name,
+      mobile,
+      age,
+      gender,
+      district,
+      createdAt: new Date()
+    });
+
+    alert("नोंदणी यशस्वी झाली.");
+
+    window.location.href = "login.html";
+
+  } catch (error) {
+    alert("त्रुटी : " + error.message);
+  }
 });
