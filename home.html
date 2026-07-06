@@ -3,73 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jodidar - Home</title>
+
+<title>मुख्य पान</title>
+
 <link rel="stylesheet" href="style.css">
 
-<style>
-body{
-font-family:Arial,sans-serif;
-margin:20px;
-}
-
-.top{
-text-align:right;
-margin-bottom:20px;
-}
-
-button{
-padding:10px 20px;
-margin:5px;
-cursor:pointer;
-}
-</style>
-
 </head>
+
 <body>
 
-<div class="top">
-<button id="logoutBtn">Logout</button>
+<div class="container">
+
+<h2>जोडीदार शोधा</h2>
+
+<p>तुमचे स्वागत आहे.</p>
+
+<hr>
+
+<h3>मुख्य मेनू</h3>
+
+<br>
+
+<a href="profile.html">
+<button>माझे प्रोफाइल</button>
+</a>
+
+<br><br>
+
+<a href="payment.html">
+<button>Payment करा</button>
+</a>
+
+<br><br>
+
+<a href="search.html">
+<button>जोडीदार शोधा</button>
+</a>
+
+<br><br>
+
+<button onclick="logout()">
+Logout
+</button>
+
 </div>
 
-<h2>Jodidar मध्ये आपले स्वागत आहे</h2>
-
-<p>तुम्ही यशस्वीरित्या Login झाला आहात.</p>
-
-<button onclick="location.href='profile.html'">
-माझे प्रोफाइल
-</button>
-
-<button onclick="location.href='search.html'">
-जोडीदार शोधा
-</button>
-
-<script type="module">
-
-import { auth } from "./firebase.js";
-
-import {
-onAuthStateChanged,
-signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-onAuthStateChanged(auth,(user)=>{
-
-if(!user){
-location.href="index.html";
+<script>
+function logout() {
+    localStorage.removeItem("payment");
+    window.location.href = "login.html";
 }
-
-});
-
-document.getElementById("logoutBtn").addEventListener("click",async()=>{
-
-await signOut(auth);
-
-alert("Logout यशस्वी.");
-
-location.href="index.html";
-
-});
-
 </script>
 
 </body>
