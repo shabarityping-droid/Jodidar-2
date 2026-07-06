@@ -1,9 +1,16 @@
 // Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// तुमचा Firebase Config येथे टाका
+// तुमचा Firebase Config येथे ठेवा
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_PROJECT.firebaseapp.com",
@@ -13,11 +20,17 @@ const firebaseConfig = {
   appId: "YOUR_APP_ID"
 };
 
-// Firebase सुरू करा
+// Firebase Initialize
 const app = initializeApp(firebaseConfig);
-
-// Firestore आणि Storage
 const db = getFirestore(app);
-const storage = getStorage(app);
 
-export { db, storage };
+// Export
+export {
+  db,
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc
+};
