@@ -3,92 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profile</title>
+
+<title>Jodidar - Profile</title>
+
+<link rel="stylesheet" href="style.css">
 
 <style>
 body{
+    margin:0;
     font-family:Arial,sans-serif;
     background:#f2f2f2;
-    margin:0;
-    padding:20px;
 }
+
 .container{
-    max-width:450px;
-    margin:auto;
+    max-width:500px;
+    margin:20px auto;
     background:#fff;
     padding:20px;
     border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,.2);
+    box-shadow:0 0 10px rgba(0,0,0,0.15);
 }
+
 h2{
     text-align:center;
+    color:#e91e63;
 }
-input{
+
+.profile-photo{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    margin:15px auto;
+    border:3px solid #e91e63;
+}
+
+input, select, textarea{
     width:100%;
     padding:10px;
-    margin:8px 0;
+    margin-top:10px;
+    border:1px solid #ccc;
+    border-radius:6px;
     box-sizing:border-box;
 }
+
+textarea{
+    resize:none;
+    height:80px;
+}
+
 button{
     width:100%;
     padding:12px;
-    background:#2196F3;
+    margin-top:15px;
+    background:#e91e63;
     color:#fff;
     border:none;
-    border-radius:5px;
+    border-radius:6px;
+    font-size:16px;
     cursor:pointer;
 }
+
 button:hover{
-    background:#1976D2;
+    background:#c2185b;
 }
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="container">
 
 <h2>माझे प्रोफाइल</h2>
 
+<img src="https://via.placeholder.com/120" id="photo" class="profile-photo">
+
+<input type="file" id="imageInput" accept="image/*">
+
 <input type="text" id="name" placeholder="पूर्ण नाव">
 
-<input type="tel" id="mobile" placeholder="मोबाईल नंबर">
+<input type="number" id="age" placeholder="वय">
 
-<label>फोटो 1</label>
-<input type="file" id="photo1" accept="image/*">
+<select id="gender">
+<option value="">लिंग निवडा</option>
+<option>पुरुष</option>
+<option>महिला</option>
+</select>
 
-<label>फोटो 2</label>
-<input type="file" id="photo2" accept="image/*">
+<input type="text" id="city" placeholder="शहर">
 
-<label>फोटो 3</label>
-<input type="file" id="photo3" accept="image/*">
+<input type="text" id="education" placeholder="शिक्षण">
 
-<label>PDF अपलोड</label>
-<input type="file" id="pdf" accept=".pdf">
+<input type="text" id="occupation" placeholder="व्यवसाय">
+
+<textarea id="about" placeholder="स्वतःबद्दल"></textarea>
 
 <button onclick="saveProfile()">प्रोफाइल सेव्ह करा</button>
 
 </div>
 
 <script>
+const imageInput = document.getElementById("imageInput");
+const photo = document.getElementById("photo");
+
+imageInput.addEventListener("change",function(){
+
+const file=this.files[0];
+
+if(file){
+photo.src=URL.createObjectURL(file);
+}
+});
+
 function saveProfile(){
 
-const name=document.getElementById("name").value;
-const mobile=document.getElementById("mobile").value;
+const profile={
+name:document.getElementById("name").value,
+age:document.getElementById("age").value,
+gender:document.getElementById("gender").value,
+city:document.getElementById("city").value,
+education:document.getElementById("education").value,
+occupation:document.getElementById("occupation").value,
+about:document.getElementById("about").value,
+photo:photo.src
+};
 
-if(name=="" || mobile==""){
-alert("नाव व मोबाईल नंबर भरा.");
-return;
+localStorage.setItem("profile",JSON.stringify(profile));
+
+alert("प्रोफाइल यशस्वीरित्या सेव्ह झाले.");
 }
 
-localStorage.setItem("name",name);
-localStorage.setItem("mobile",mobile);
+window.onload=function(){
 
-alert("प्रोफाइल सेव्ह झाले.");
+const data=JSON.parse(localStorage.getItem("profile"));
 
-window.location.href="home.html";
+if(data){
+
+document.getElementById("name").value=data.name||"";
+document.getElementById("age").value=data.age||"";
+document.getElementById("gender").value=data.gender||"";
+document.getElementById("city").value=data.city||"";
+document.getElementById("education").value=data.education||"";
+document.getElementById("occupation").value=data.occupation||"";
+document.getElementById("about").value=data.about||"";
+
+if(data.photo){
+photo.src=data.photo;
+}
 
 }
+
+};
 </script>
 
 </body>
