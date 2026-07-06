@@ -1,25 +1,20 @@
-// Import Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
-// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyCKQVsvvx022jItJVLSBpiokzsfSE2v5gM",
   authDomain: "jodidar-3ea53.firebaseapp.com",
   databaseURL: "https://jodidar-3ea53-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "jodidar-3ea53",
-  storageBucket: "jodidar-3ea53.firebasestorage.app",
-  messagingSenderId: "165551441273",
-  appId: "1:165551441273:web:YOUR_APP_ID"
+  storageBucket: "jodidar-3ea53.appspot.com",
+  messagingSenderId: "600366818775",
+  appId: "1:600366818775:web:96c942e8154c2b9cf522bf"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Export Services
-export const auth = getAuth(app);
-export const db = getDatabase(app);
-export const storage = getStorage(app);
-export default app;
+const database = getDatabase(app);
+const storage = getStorage(app);
+
+export { app, database, storage };
