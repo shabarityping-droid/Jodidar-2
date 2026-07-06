@@ -1,73 +1,80 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jodidar - Home</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jodidar - Home</title>
 
-<style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f5f5f5;
-}
+  <style>
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#f5f5f5;
+    }
 
-header{
-    background:#e91e63;
-    color:#fff;
-    padding:15px;
-    text-align:center;
-    position:relative;
-}
+    header{
+      background:#e91e63;
+      color:white;
+      padding:15px;
+      text-align:center;
+      position:relative;
+    }
 
-#logoutBtn{
-    position:absolute;
-    top:10px;
-    right:10px;
-    background:#fff;
-    color:#e91e63;
-    border:none;
-    padding:8px 15px;
-    border-radius:5px;
-    cursor:pointer;
-    font-weight:bold;
-}
+    #logoutBtn{
+      position:absolute;
+      top:10px;
+      right:10px;
+      background:white;
+      color:#e91e63;
+      border:none;
+      padding:8px 15px;
+      border-radius:5px;
+      cursor:pointer;
+      font-weight:bold;
+    }
 
-.container{
-    padding:20px;
-    text-align:center;
-}
-</style>
+    .container{
+      padding:20px;
+      text-align:center;
+    }
+
+    .btn{
+      display:inline-block;
+      margin-top:20px;
+      padding:10px 20px;
+      background:#e91e63;
+      color:white;
+      text-decoration:none;
+      border-radius:5px;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-    <h2>जोडीदार शोधा</h2>
-    <button id="logoutBtn">Logout</button>
+  <h2>जोडीदार शोधा</h2>
+  <button id="logoutBtn">Logout</button>
 </header>
 
 <div class="container">
-    <h3>स्वागत आहे!</h3>
-    <p>तुम्ही यशस्वीरित्या Login केले आहे.</p>
+  <h3>स्वागत आहे!</h3>
+  <p>तुमचे लॉगिन यशस्वी झाले.</p>
+
+  <a href="profile.html" class="btn">प्रोफाइल</a>
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-const firebaseConfig = {
-  // तुमचा Firebase Config येथे ठेवा
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { auth } from "./firebase.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 document.getElementById("logoutBtn").addEventListener("click", () => {
-    signOut(auth).then(() => {
-        window.location.href = "login.html";
-    }).catch((error) => {
-        alert(error.message);
+  signOut(auth)
+    .then(() => {
+      window.location.href = "login.html";
+    })
+    .catch((error) => {
+      alert(error.message);
     });
 });
 </script>
