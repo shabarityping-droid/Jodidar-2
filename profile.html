@@ -1,93 +1,79 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>माझे प्रोफाइल - Jodidar</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>माझे प्रोफाइल</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
 <body>
+
+<div class="container">
 
 <h2>माझे प्रोफाइल</h2>
 
 <form id="profileForm">
 
-  <label>पूर्ण नाव</label><br>
-  <input type="text" id="name" required><br><br>
+<input type="text" id="name" placeholder="पूर्ण नाव" required>
 
-  <label>मोबाईल नंबर</label><br>
-  <input type="text" id="mobile" required><br><br>
+<br><br>
 
-  <label>वय</label><br>
-  <input type="number" id="age" required><br><br>
+<input type="number" id="age" placeholder="वय" required>
 
-  <label>जिल्हा</label><br>
-  <input type="text" id="district" required><br><br>
+<br><br>
 
-  <label>शिक्षण</label><br>
-  <input type="text" id="education" required><br><br>
+<select id="gender" required>
+<option value="">लिंग निवडा</option>
+<option value="Male">पुरुष</option>
+<option value="Female">महिला</option>
+</select>
 
-  <label>व्यवसाय</label><br>
-  <input type="text" id="occupation" required><br><br>
+<br><br>
 
-  <button type="submit">Profile Save</button>
+<input type="text" id="city" placeholder="गाव / शहर" required>
+
+<br><br>
+
+<input type="tel" id="mobile" placeholder="मोबाईल नंबर" required>
+
+<br><br>
+
+<label>फोटो १</label><br>
+<input type="file" id="photo1" accept="image/*">
+
+<br><br>
+
+<label>फोटो २</label><br>
+<input type="file" id="photo2" accept="image/*">
+
+<br><br>
+
+<label>फोटो ३</label><br>
+<input type="file" id="photo3" accept="image/*">
+
+<br><br>
+
+<label>PDF अपलोड करा</label><br>
+<input type="file" id="pdf" accept=".pdf">
+
+<br><br>
+
+<button type="submit">प्रोफाइल सेव्ह करा</button>
 
 </form>
 
 <br>
 
-<button onclick="location.href='home.html'">
-Home
-</button>
+<a href="home.html">
+<button type="button">Home</button>
+</a>
 
-<script type="module">
+</div>
 
-import {
-  db,
-  auth
-} from "./firebase.js";
-
-import {
-  doc,
-  setDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-document.getElementById("profileForm").addEventListener("submit", async (e) => {
-
-  e.preventDefault();
-
-  const user = auth.currentUser;
-
-  if (!user) {
-    alert("कृपया प्रथम Login करा.");
-    return;
-  }
-
-  try {
-
-    await setDoc(doc(db, "profiles", user.uid), {
-
-      name: document.getElementById("name").value,
-      mobile: document.getElementById("mobile").value,
-      age: document.getElementById("age").value,
-      district: document.getElementById("district").value,
-      education: document.getElementById("education").value,
-      occupation: document.getElementById("occupation").value,
-      email: user.email
-
-    });
-
-    alert("प्रोफाइल यशस्वीरित्या सेव्ह झाले.");
-
-  } catch (error) {
-
-    alert(error.message);
-
-  }
-
-});
-
-</script>
+<script type="module" src="profile.js"></script>
 
 </body>
 </html>
