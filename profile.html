@@ -3,73 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>माझे प्रोफाइल - Jodidar</title>
 
-<title>माझे प्रोफाइल</title>
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+}
 
-<link rel="stylesheet" href="style.css">
+.container{
+    max-width:500px;
+    margin:20px auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.15);
+}
 
+h2{
+    text-align:center;
+}
+
+img{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    margin:15px auto;
+    border:3px solid #2196F3;
+}
+
+.info{
+    margin:12px 0;
+    font-size:17px;
+}
+
+span{
+    font-weight:bold;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:20px;
+    border:none;
+    border-radius:6px;
+    background:#2196F3;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
 
 <h2>माझे प्रोफाइल</h2>
 
-<form id="profileForm">
+<img id="photo" src="user.png" alt="Profile">
 
-<input type="text" id="name" placeholder="पूर्ण नाव" required>
+<div class="info">नाव : <span id="name"></span></div>
 
-<br><br>
+<div class="info">मोबाईल : <span id="mobile"></span></div>
 
-<input type="number" id="age" placeholder="वय" required>
+<div class="info">वय : <span id="age"></span></div>
 
-<br><br>
+<div class="info">लिंग : <span id="gender"></span></div>
 
-<select id="gender" required>
-<option value="">लिंग निवडा</option>
-<option value="Male">पुरुष</option>
-<option value="Female">महिला</option>
-</select>
+<div class="info">जिल्हा : <span id="district"></span></div>
 
-<br><br>
+<div class="info">वैवाहिक स्थिती : <span id="maritalStatus"></span></div>
 
-<input type="text" id="city" placeholder="गाव / शहर" required>
+<div class="info">शिक्षण : <span id="education"></span></div>
 
-<br><br>
+<div class="info">व्यवसाय : <span id="occupation"></span></div>
 
-<input type="tel" id="mobile" placeholder="मोबाईल नंबर" required>
-
-<br><br>
-
-<label>फोटो १</label><br>
-<input type="file" id="photo1" accept="image/*">
-
-<br><br>
-
-<label>फोटो २</label><br>
-<input type="file" id="photo2" accept="image/*">
-
-<br><br>
-
-<label>फोटो ३</label><br>
-<input type="file" id="photo3" accept="image/*">
-
-<br><br>
-
-<label>PDF अपलोड करा</label><br>
-<input type="file" id="pdf" accept=".pdf">
-
-<br><br>
-
-<button type="submit">प्रोफाइल सेव्ह करा</button>
-
-</form>
-
-<br>
-
-<a href="home.html">
-<button type="button">Home</button>
-</a>
+<button onclick="window.location='edit-profile.html'">
+प्रोफाइल संपादित करा
+</button>
 
 </div>
 
