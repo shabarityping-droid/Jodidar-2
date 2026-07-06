@@ -1,20 +1,22 @@
+// firebase-config.js
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCKQVsvvx022jItJVLSBpiokzsfSE2v5gM",
-  authDomain: "jodidar-3ea53.firebaseapp.com",
-  databaseURL: "https://jodidar-3ea53-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "jodidar-3ea53",
-  storageBucket: "jodidar-3ea53.appspot.com",
-  messagingSenderId: "600366818775",
-  appId: "1:600366818775:web:96c942e8154c2b9cf522bf"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 const app = initializeApp(firebaseConfig);
 
-const database = getDatabase(app);
+const db = getDatabase(app);
 const storage = getStorage(app);
 
-export { app, database, storage };
+export { app, db, storage };
