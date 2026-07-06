@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Jodidar - Login</title>
 
 <link rel="stylesheet" href="style.css">
@@ -16,7 +17,7 @@ body{
 .container{
     width:90%;
     max-width:350px;
-    margin:70px auto;
+    margin:60px auto;
     background:#fff;
     padding:20px;
     border-radius:10px;
@@ -24,40 +25,33 @@ body{
 }
 h2{
     text-align:center;
-    color:#e91e63;
 }
 input{
     width:100%;
     padding:12px;
-    margin:10px 0;
+    margin-top:15px;
     border:1px solid #ccc;
     border-radius:5px;
-    font-size:16px;
     box-sizing:border-box;
 }
 button{
     width:100%;
     padding:12px;
+    margin-top:20px;
     background:#e91e63;
-    color:#fff;
+    color:white;
     border:none;
     border-radius:5px;
     font-size:16px;
     cursor:pointer;
 }
 button:hover{
-    background:#c2185b;
-}
-a{
-    display:block;
-    text-align:center;
-    margin-top:15px;
-    text-decoration:none;
-    color:#2196f3;
+    background:#d81b60;
 }
 </style>
 
 </head>
+
 <body>
 
 <div class="container">
@@ -67,12 +61,12 @@ a{
 <input
 type="tel"
 id="mobile"
-placeholder="मोबाईल नंबर"
+placeholder="मोबाईल नंबर टाका"
 maxlength="10">
 
-<button onclick="loginUser()">Login</button>
-
-<a href="register.html">नवीन नोंदणी करा</a>
+<button onclick="loginUser()">
+पुढे जा
+</button>
 
 </div>
 
@@ -83,25 +77,15 @@ function loginUser(){
 let mobile=document.getElementById("mobile").value.trim();
 
 if(mobile.length!=10){
-alert("योग्य 10 अंकी मोबाईल नंबर टाका.");
+alert("वैध मोबाईल नंबर टाका");
 return;
 }
 
-let users=JSON.parse(localStorage.getItem("users"))||[];
+// मोबाईल नंबर तात्पुरता सेव्ह
+localStorage.setItem("mobile",mobile);
 
-let found=users.find(user=>user.mobile===mobile);
-
-if(found){
-
-localStorage.setItem("currentUser",JSON.stringify(found));
-
-window.location.href="home.html";
-
-}else{
-
-alert("हा मोबाईल नंबर नोंदणीकृत नाही.");
-
-}
+// पुढील Call Verification पेज
+window.location.href="call-verification.html";
 
 }
 
