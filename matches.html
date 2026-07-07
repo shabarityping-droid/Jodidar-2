@@ -3,75 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Jodidar - Matches</title>
-
-<link rel="stylesheet" href="style.css">
+<title>Matches</title>
 
 <style>
-
 body{
-    margin:0;
     font-family:Arial,sans-serif;
     background:#f5f5f5;
+    margin:0;
 }
-
 header{
     background:#e91e63;
     color:#fff;
-    padding:15px;
     text-align:center;
+    padding:15px;
 }
-
 .container{
     width:95%;
-    max-width:900px;
     margin:auto;
     padding:15px;
 }
-
 .card{
     background:#fff;
     border-radius:10px;
     padding:15px;
     margin-bottom:15px;
-    box-shadow:0 2px 8px rgba(0,0,0,.15);
+    box-shadow:0 2px 5px rgba(0,0,0,.2);
 }
-
-.card img{
+img{
     width:100%;
-    height:250px;
-    object-fit:cover;
-    border-radius:10px;
-}
-
-.card h3{
-    margin:10px 0;
-}
-
-.card p{
-    margin:5px 0;
-}
-
-button{
-    width:100%;
-    padding:12px;
-    border:none;
+    max-width:250px;
     border-radius:8px;
+}
+button{
     background:#e91e63;
     color:white;
-    font-size:16px;
-    cursor:pointer;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
 }
-
-button:hover{
-    background:#c2185b;
-}
-
-#matchesList{
-    margin-top:20px;
-}
-
 </style>
 </head>
 
@@ -82,67 +51,63 @@ button:hover{
 </header>
 
 <div class="container">
-
-<div id="matchesList">
-Loading...
-</div>
-
+<div id="matchesList">डेटा लोड होत आहे...</div>
 </div>
 
 <script type="module">
+
 import { db } from "./firebase-config.js";
+
 import {
 ref,
 get
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-    const matchesList = document.getElementById("matchesList");
 
-async function loadMatches(){
+const matchesList=document.getElementById("matchesList");
 
-    matchesList.innerHTML = "Loading...";
+try{
 
-    const snapshot = await get(ref(db,"users"));
+const snapshot=await get(ref(db,"users"));
 
-    if(!snapshot.exists()){
-        matchesList.innerHTML = "<h3>No Matches Found</h3>";
-        return;
-    }
+if(!snapshot.exists()){
+matchesList.innerHTML="<h3>कोणताही डेटा उपलब्ध नाही.</h3>";
+}else{
 
-    matchesList.innerHTML = "";
+matchesList.innerHTML="";
 
-    snapshot.forEach((child)=>{
+snapshot.forEach(child=>{
 
-        const user = child.val();
+const user=child.val();
 
-        matchesList.innerHTML += `
+matchesList.innerHTML+=`
+<div class="card">
 
-        <div class="card">
+<img src="${user.photo || 'https://via.placeholder.com/250'}">
 
-            <img src="${user.photo || 'https://via.placeholder.com/400x250'}">
+<h3>${user.name || ''}</h3>
 
-            <h3>${user.name || "No Name"}</h3>
+<p>वय : ${user.age || ''}</p>
 
-            <p><b>वय:</b> ${user.age || "-"}</p>
+<p>लिंग : ${user.gender || ''}</p>
 
-            <p><b>लिंग:</b> ${user.gender || "-"}</p>
+<p>शहर : ${user.city || ''}</p>
 
-            <p><b>शहर:</b> ${user.city || "-"}</p>
+</div>
+`;
 
-            <button onclick="viewProfile('${child.key}')">
-                View Profile
-            </button>
-
-        </div>
-
-        `;
-
-    });
+});
 
 }
 
-window.viewProfile = function(id){
-    localStorage.setItem("viewUserId", id);
-    window.location.href = "profile.html";
-};
+}catch(error){
 
-loadMatches();
+matchesList.innerHTML="<h3>डेटा मिळाला नाही.</h3>";
+
+console.log(error);
+
+}
+
+</script>
+
+</body>
+</html>
