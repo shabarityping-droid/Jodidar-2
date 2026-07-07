@@ -1,122 +1,25 @@
-<!DOCTYPE html>
-<html lang="mr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jodidar - Profile</title>
-
-<link rel="stylesheet" href="style.css">
-
-<style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#f5f5f5;
-}
-
-.container{
-    max-width:500px;
-    margin:20px auto;
-    background:#fff;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
-
-.profile-img{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
-    display:block;
-    margin:auto;
-}
-
-h2{
-    text-align:center;
-    color:#e91e63;
-}
-
-.info{
-    margin-top:20px;
-}
-
-.info p{
-    padding:10px;
-    border-bottom:1px solid #ddd;
-}
-
-.edit-btn{
-    width:100%;
-    padding:12px;
-    background:#e91e63;
-    color:white;
-    border:none;
-    border-radius:6px;
-    font-size:16px;
-    cursor:pointer;
-    margin-top:20px;
-}
-</style>
-
-</head>
-<body>
-
-<div class="container">
-
-<img src="https://via.placeholder.com/120" class="profile-img" id="profileImage">
-
-<h2 id="name">पूर्ण नाव</h2>
-
-<div class="info">
-<p><strong>वय :</strong> <span id="age">25</span></p>
-
-<p><strong>लिंग :</strong> <span id="gender">पुरुष</span></p>
-
-<p><strong>जिल्हा :</strong> <span id="district">पुणे</span></p>
-
-<p><strong>शिक्षण :</strong> <span id="education">Graduate</span></p>
-
-<p><strong>व्यवसाय :</strong> <span id="occupation">Business</span></p>
-
-<p><strong>मोबाईल :</strong> <span id="mobile">9999999999</span></p>
-
-<p><strong>वैवाहिक स्थिती :</strong> <span id="status">अविवाहित</span></p>
-</div>
-
-<button class="edit-btn" onclick="location.href='edit-profile.html'">
-प्रोफाइल संपादित करा
-</button>
-
-</div>
-
 <script>
-const profile = JSON.parse(localStorage.getItem("profile"));
-
-if(profile){
+const profile = JSON.parse(localStorage.getItem("profile")) || {};
 
 document.getElementById("name").innerText = profile.name || "";
-
 document.getElementById("age").innerText = profile.age || "";
-
 document.getElementById("gender").innerText = profile.gender || "";
-
 document.getElementById("district").innerText = profile.district || "";
-
 document.getElementById("education").innerText = profile.education || "";
-
 document.getElementById("occupation").innerText = profile.occupation || "";
-
 document.getElementById("mobile").innerText = profile.mobile || "";
-
 document.getElementById("status").innerText = profile.status || "";
 
-if(profile.image){
-document.getElementById("profileImage").src = profile.image;
+// फोटो दाखवा
+const profileImage = document.getElementById("profileImage");
+
+if (profile.image && profile.image.trim() !== "") {
+    profileImage.src = profile.image;
+} else {
+    profileImage.src = "https://via.placeholder.com/120";
 }
 
-}
+profileImage.onerror = function () {
+    this.src = "https://via.placeholder.com/120";
+};
 </script>
-
-</body>
-</html>
