@@ -3,17 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jodidar - Register</title>
-
-<link rel="stylesheet" href="style.css">
+<title>नोंदणी</title>
 
 <style>
 body{
-    margin:0;
     font-family:Arial,sans-serif;
     background:#f2f2f2;
+    margin:0;
 }
-
 .container{
     width:90%;
     max-width:400px;
@@ -21,23 +18,22 @@ body{
     background:#fff;
     padding:20px;
     border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,.15);
+    box-shadow:0 0 10px rgba(0,0,0,.2);
 }
-
-h2{
-    text-align:center;
-    color:#e91e63;
-}
-
 input,select,textarea{
     width:100%;
     padding:10px;
     margin:8px 0;
-    border:1px solid #ccc;
-    border-radius:5px;
     box-sizing:border-box;
 }
-
+img{
+    width:120px;
+    height:150px;
+    object-fit:cover;
+    border:1px solid #ccc;
+    display:block;
+    margin:10px auto;
+}
 button{
     width:100%;
     padding:12px;
@@ -46,11 +42,6 @@ button{
     border:none;
     border-radius:5px;
     font-size:16px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#c2185b;
 }
 </style>
 </head>
@@ -65,7 +56,7 @@ button:hover{
 
 <input type="text" id="name" placeholder="पूर्ण नाव" required>
 
-<input type="tel" id="mobile" placeholder="मोबाईल नंबर" maxlength="10" required>
+<input type="tel" id="mobile" maxlength="10" placeholder="मोबाईल नंबर" required>
 
 <input type="number" id="age" placeholder="वय" required>
 
@@ -79,42 +70,25 @@ button:hover{
 
 <textarea id="about" placeholder="स्वतःबद्दल"></textarea>
 
+<label>पासपोर्ट साईज फोटो</label>
+<input type="file" id="photo" accept="image/*">
+
+<img id="preview" src="" style="display:none;">
+
 <button type="submit">नोंदणी करा</button>
 
 </form>
 
 </div>
 
-<script type="module">
-
-import { db } from "./firebase-config.js";
-import { ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-document.getElementById("registerForm").addEventListener("submit",function(e){
-
-e.preventDefault();
-
-const data={
-name:document.getElementById("name").value,
-mobile:document.getElementById("mobile").value,
-age:document.getElementById("age").value,
-gender:document.getElementById("gender").value,
-city:document.getElementById("city").value,
-about:document.getElementById("about").value,
-createdAt:Date.now()
+<script>
+photo.onchange=function(){
+    const file=this.files[0];
+    if(file){
+        preview.src=URL.createObjectURL(file);
+        preview.style.display="block";
+    }
 };
-
-push(ref(db,"users"),data)
-.then(()=>{
-alert("नोंदणी यशस्वी!");
-window.location.href = "home.html";
-})
-.catch((err)=>{
-alert(err.message);
-});
-
-});
-
 </script>
 
 </body>
