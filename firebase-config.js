@@ -1,5 +1,4 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
@@ -10,14 +9,13 @@ const firebaseConfig = {
   projectId: "jodidar-3ea53",
   storageBucket: "jodidar-3ea53.firebasestorage.app",
   messagingSenderId: "1059717419145",
-  appId: "1:1059717419145:web:ee77586d288c0d2853f658",
-  measurementId: "G-SF5ESND7QX"
+  appId: "1:1059717419145:web:d44b6a53c8d4458853f658",
+  measurementId: "G-D7ZE8FLWC5"
 };
 
 const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
-export const db = getDatabase(app);
-export const storage = getStorage(app);
+const db = getDatabase(app);
+const storage = getStorage(app);
 
-export default app;
+export { app, db, storage };
