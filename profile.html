@@ -1,93 +1,100 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jodidar - Profile</title>
 
-<style>
-body{
-    font-family:Arial,sans-serif;
-    background:#f5f5f5;
-    margin:0;
-    padding:20px;
-}
-
-.card{
-    max-width:400px;
-    margin:auto;
-    background:#fff;
-    border-radius:10px;
-    padding:20px;
-    box-shadow:0 2px 10px rgba(0,0,0,.2);
-}
-
-img{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
-    display:block;
-    margin:0 auto 15px;
-    border:3px solid #ff4081;
-}
-
-h2{
-    text-align:center;
-}
-
-p{
-    font-size:16px;
-    margin:8px 0;
-}
-</style>
-
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="card">
+<div class="container">
 
-<img id="profileImage" src="https://via.placeholder.com/120" alt="Photo">
+    <h1>माझे प्रोफाइल</h1>
 
-<h2 id="name">नाव</h2>
+    <div class="profile-card">
 
-<p><b>वय :</b> <span id="age"></span></p>
+        <img
+            id="profilePhoto"
+            src="https://via.placeholder.com/150x180?text=Photo"
+            alt="Profile Photo">
 
-<p><b>लिंग :</b> <span id="gender"></span></p>
+        <p><strong>नाव:</strong> <span id="name"></span></p>
 
-<p><b>जिल्हा :</b> <span id="district"></span></p>
+        <p><strong>वय:</strong> <span id="age"></span></p>
 
-<p><b>शिक्षण :</b> <span id="education"></span></p>
+        <p><strong>लिंग:</strong> <span id="gender"></span></p>
 
-<p><b>व्यवसाय :</b> <span id="occupation"></span></p>
+        <p><strong>मोबाईल:</strong> <span id="mobile"></span></p>
 
-<p><b>मोबाईल :</b> <span id="mobile"></span></p>
+        <p><strong>गाव:</strong> <span id="village"></span></p>
 
-<p><b>स्थिती :</b> <span id="status"></span></p>
+        <p><strong>तालुका:</strong> <span id="taluka"></span></p>
+
+        <p><strong>जिल्हा:</strong> <span id="district"></span></p>
+
+        <p><strong>शिक्षण:</strong> <span id="education"></span></p>
+
+        <p><strong>व्यवसाय:</strong> <span id="occupation"></span></p>
+
+        <p><strong>स्वतःबद्दल:</strong></p>
+
+        <p id="about"></p>
+
+    </div>
 
 </div>
+<script type="module">
 
-<script>
-const profile = JSON.parse(localStorage.getItem("profile")) || {};
+import { db } from "./firebase-config.js";
 
-document.getElementById("name").innerText = profile.name || "";
-document.getElementById("age").innerText = profile.age || "";
-document.getElementById("gender").innerText = profile.gender || "";
-document.getElementById("district").innerText = profile.district || "";
-document.getElementById("education").innerText = profile.education || "";
-document.getElementById("occupation").innerText = profile.occupation || "";
-document.getElementById("mobile").innerText = profile.mobile || "";
-document.getElementById("status").innerText = profile.status || "";
+import {
+  ref,
+  get
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const img=document.getElementById("profileImage");
+const profileId = localStorage.getItem("profileId");
 
-if(profile.image){
-    img.src=profile.image;
+if (!profileId) {
+    alert("प्रोफाइल सापडले नाही.");
+    window.location.href = "register.html";
 }
 
-img.onerror=function(){
-    this.src="https://via.placeholder.com/120";
-};
+const userRef = ref(db, "users/" + profileId);
+
+get(userRef).then((snapshot) => {
+
+    if (snapshot.exists()) {
+
+        const user = snapshot.val();
+
+        document.getElementById("profilePhoto").src = user.photo || "";
+        document.getElementById("name").textContent = user.name || "";
+        document.getElementById("age").textContent = user.age || "";
+        document.getElementById("gender").textContent = user.gender || "";
+        document.getElementById("mobile").textContent = user.mobile || "";
+        document.getElementById("village").textContent = user.village || "";
+        document.getElementById("taluka").textContent = user.taluka || "";
+        document.getElementById("district").textContent = user.district || "";
+        document.getElementById("education").textContent = user.education || "";
+        document.getElementById("occupation").textContent = user.occupation || "";
+        document.getElementById("about").textContent = user.about || "";
+
+    } else {
+
+        alert("प्रोफाइल माहिती उपलब्ध नाही.");
+
+    }
+
+}).catch((error) => {
+
+    console.error(error);
+    alert("डेटा लोड करताना त्रुटी आली.");
+
+});
+
 </script>
 
 </body>
