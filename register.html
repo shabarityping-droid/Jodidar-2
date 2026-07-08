@@ -3,105 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Jodidar</title>
+    <title>Jodidar - Register</title>
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial,sans-serif;
-        }
-
-        body{
-            background:#f5f5f5;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            min-height:100vh;
-        }
-
-        .container{
-            width:95%;
-            max-width:420px;
-            background:#fff;
-            padding:20px;
-            border-radius:12px;
-            box-shadow:0 0 10px rgba(0,0,0,.15);
-        }
-
-        h2{
-            text-align:center;
-            color:#d81b60;
-            margin-bottom:20px;
-        }
-
-        input,select{
-            width:100%;
-            padding:12px;
-            margin:8px 0;
-            border:1px solid #ccc;
-            border-radius:6px;
-            font-size:16px;
-        }
-
-        img{
-            width:120px;
-            height:150px;
-            object-fit:cover;
-            border:1px solid #ccc;
-            display:block;
-            margin:10px auto;
-            border-radius:6px;
-        }
-
-        button{
-            width:100%;
-            padding:12px;
-            background:#d81b60;
-            color:#fff;
-            border:none;
-            border-radius:6px;
-            font-size:17px;
-            cursor:pointer;
-            margin-top:10px;
-        }
-
-        button:hover{
-            background:#b0004f;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="container">
 
-<h2>Jodidar Registration</h2>
+    <h1>Jodidar Registration</h1>
 
-<img id="preview" src="https://via.placeholder.com/120x150?text=Photo">
+    <div class="photo-box">
 
-<input type="file" id="photo" accept="image/*">
+        <img
+            id="preview"
+            src="https://via.placeholder.com/140x170?text=Photo"
+            alt="Photo Preview">
 
-<input type="text" id="name" placeholder="पूर्ण नाव">
+        <br><br>
 
-<input type="number" id="age" placeholder="वय">
+        <input
+            type="file"
+            id="photo"
+            accept="image/*">
 
-<select id="gender">
-    <option value="">लिंग निवडा</option>
-    <option>पुरुष</option>
-    <option>महिला</option>
-</select>
+    </div>
 
-<input type="text" id="mobile" placeholder="मोबाईल नंबर">
+    <label>पूर्ण नाव</label>
+    <input
+        type="text"
+        id="name"
+        placeholder="तुमचे पूर्ण नाव">
 
-<input type="text" id="address" placeholder="पत्ता">
+    <label>वय</label>
+    <input
+        type="number"
+        id="age"
+        placeholder="वय">
 
-<button id="registerBtn">Register</button>
+    <label>लिंग</label>
+    <select id="gender">
+        <option value="">निवडा</option>
+        <option>पुरुष</option>
+        <option>महिला</option>
+    </select>
+
+    <label>मोबाईल नंबर</label>
+    <input
+        type="tel"
+        id="mobile"
+        placeholder="मोबाईल नंबर">
+
+    <label>गाव</label>
+    <input
+        type="text"
+        id="village"
+        placeholder="गाव">
+
+    <label>तालुका</label>
+    <input
+        type="text"
+        id="taluka"
+        placeholder="तालुका">
+
+    <label>जिल्हा</label>
+    <input
+        type="text"
+        id="district"
+        placeholder="जिल्हा">
+
+    <label>शिक्षण</label>
+    <input
+        type="text"
+        id="education"
+        placeholder="शिक्षण">
+
+    <label>व्यवसाय</label>
+    <input
+        type="text"
+        id="occupation"
+        placeholder="व्यवसाय">
+
+    <label>स्वतःबद्दल</label>
+    <textarea
+        id="about"
+        placeholder="थोडक्यात माहिती"></textarea>
+
+    <button id="registerBtn">
+        नोंदणी करा
+    </button>
 
 </div>
+<script type="module">
 
-<script type="module" src="register.js"></script>
+import { db, storage } from "./firebase-config.js";
+
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+import {
+    ref as dbRef,
+    set
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const photo = document.getElementById("photo");
+const preview = document.getElementById("preview");
+
+// Photo Preview
+photo.addEventListener("change", () => {
+
+    const file = photo.files[0];
+
+    if(file){
+        preview.src = URL.createObjectURL(file);
+    }
+
+});
+
+// Register
+document.getElementById("registerBtn").addEventListener("click", async () => {
+
+    const file = photo.files[0];
+
+    if(!file){
+        alert("कृपया फोटो निवडा.");
+        return;
+    }
+
+    const id = Date.now().toString();
+
+    const storageRef = ref(storage, "photos/" + id);
+
+    await uploadBytes(storageRef, file);
+
+    const photoURL = await getDownloadURL(storageRef);
+
+    const userData = {
+
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        gender: document.getElementById("gender").value,
+        mobile: document.getElementById("mobile").value,
+        village: document.getElementById("village").value,
+        taluka: document.getElementById("taluka").value,
+        district: document.getElementById("district").value,
+        education: document.getElementById("education").value,
+        occupation: document.getElementById("occupation").value,
+        about: document.getElementById("about").value,
+        photo: photoURL
+
+    };
+
+    await set(dbRef(db, "users/" + id), userData);
+
+    localStorage.setItem("profileId", id);
+
+    alert("नोंदणी यशस्वी झाली.");
+
+    window.location.href = "profile.html";
+
+});
+
+</script>
 
 </body>
 </html>
