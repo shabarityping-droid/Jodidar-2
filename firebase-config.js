@@ -1,10 +1,8 @@
-// Firebase SDK Imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
-// Your Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyCKQVsvvx022jItJVLSBpiokzsfSE2v5gM",
   authDomain: "jodidar-3ea53.firebaseapp.com",
@@ -16,9 +14,10 @@ const firebaseConfig = {
   measurementId: "G-SF5ESND7QX"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getDatabase(app);
 export const storage = getStorage(app);
+
+export default app;
