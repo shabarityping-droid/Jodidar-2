@@ -1,99 +1,107 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>नोंदणी</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Jodidar</title>
 
-<style>
-body{
-    font-family:Arial,sans-serif;
-    background:#f5f5f5;
-    margin:0;
-    padding:20px;
-}
-.container{
-    width:90%;
-    max-width:400px;
-    margin:auto;
-    background:#fff;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,.2);
-}
-input,select,textarea{
-    width:100%;
-    padding:10px;
-    margin:8px 0;
-    box-sizing:border-box;
-}
-img{
-    width:120px;
-    height:150px;
-    object-fit:cover;
-    border:1px solid #ccc;
-    display:none;
-    margin:10px auto;
-}
-button{
-    width:100%;
-    padding:12px;
-    background:#e91e63;
-    color:#fff;
-    border:none;
-    border-radius:5px;
-    font-size:16px;
-}
-</style>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f5f5f5;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        .container{
+            width:95%;
+            max-width:420px;
+            background:#fff;
+            padding:20px;
+            border-radius:12px;
+            box-shadow:0 0 10px rgba(0,0,0,.15);
+        }
+
+        h2{
+            text-align:center;
+            color:#d81b60;
+            margin-bottom:20px;
+        }
+
+        input,select{
+            width:100%;
+            padding:12px;
+            margin:8px 0;
+            border:1px solid #ccc;
+            border-radius:6px;
+            font-size:16px;
+        }
+
+        img{
+            width:120px;
+            height:150px;
+            object-fit:cover;
+            border:1px solid #ccc;
+            display:block;
+            margin:10px auto;
+            border-radius:6px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#d81b60;
+            color:#fff;
+            border:none;
+            border-radius:6px;
+            font-size:17px;
+            cursor:pointer;
+            margin-top:10px;
+        }
+
+        button:hover{
+            background:#b0004f;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="container">
 
-<h2>नोंदणी</h2>
+<h2>Jodidar Registration</h2>
 
-<form id="registerForm">
+<img id="preview" src="https://via.placeholder.com/120x150?text=Photo">
 
-<input type="text" id="name" placeholder="पूर्ण नाव" required>
-
-<input type="tel" id="mobile" maxlength="10" placeholder="मोबाईल नंबर" required>
-
-<input type="number" id="age" placeholder="वय" required>
-
-<select id="gender" required>
-<option value="">लिंग निवडा</option>
-<option>पुरुष</option>
-<option>महिला</option>
-</select>
-
-<input type="text" id="city" placeholder="शहर" required>
-
-<textarea id="about" placeholder="स्वतःबद्दल"></textarea>
-
-<label>पासपोर्ट साईज फोटो</label>
 <input type="file" id="photo" accept="image/*">
 
-<img id="preview">
+<input type="text" id="name" placeholder="पूर्ण नाव">
 
-<button type="submit">नोंदणी करा</button>
+<input type="number" id="age" placeholder="वय">
 
-</form>
+<select id="gender">
+    <option value="">लिंग निवडा</option>
+    <option>पुरुष</option>
+    <option>महिला</option>
+</select>
+
+<input type="text" id="mobile" placeholder="मोबाईल नंबर">
+
+<input type="text" id="address" placeholder="पत्ता">
+
+<button id="registerBtn">Register</button>
 
 </div>
 
-<script>
-const photo=document.getElementById("photo");
-const preview=document.getElementById("preview");
-
-photo.addEventListener("change",function(){
-const file=this.files[0];
-if(file){
-preview.src=URL.createObjectURL(file);
-preview.style.display="block";
-}
-});
-</script>
+<script type="module" src="register.js"></script>
 
 </body>
 </html>
