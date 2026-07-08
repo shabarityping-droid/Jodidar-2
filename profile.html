@@ -1,3 +1,72 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    margin:0;
+    padding:20px;
+}
+
+.card{
+    max-width:400px;
+    margin:auto;
+    background:#fff;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+
+img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    margin:0 auto 15px;
+    border:3px solid #ff4081;
+}
+
+h2{
+    text-align:center;
+}
+
+p{
+    font-size:16px;
+    margin:8px 0;
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+<img id="profileImage" src="https://via.placeholder.com/120" alt="Photo">
+
+<h2 id="name">नाव</h2>
+
+<p><b>वय :</b> <span id="age"></span></p>
+
+<p><b>लिंग :</b> <span id="gender"></span></p>
+
+<p><b>जिल्हा :</b> <span id="district"></span></p>
+
+<p><b>शिक्षण :</b> <span id="education"></span></p>
+
+<p><b>व्यवसाय :</b> <span id="occupation"></span></p>
+
+<p><b>मोबाईल :</b> <span id="mobile"></span></p>
+
+<p><b>स्थिती :</b> <span id="status"></span></p>
+
+</div>
+
 <script>
 const profile = JSON.parse(localStorage.getItem("profile")) || {};
 
@@ -10,16 +79,16 @@ document.getElementById("occupation").innerText = profile.occupation || "";
 document.getElementById("mobile").innerText = profile.mobile || "";
 document.getElementById("status").innerText = profile.status || "";
 
-// फोटो दाखवा
-const profileImage = document.getElementById("profileImage");
+const img=document.getElementById("profileImage");
 
-if (profile.image && profile.image.trim() !== "") {
-    profileImage.src = profile.image;
-} else {
-    profileImage.src = "https://via.placeholder.com/120";
+if(profile.image){
+    img.src=profile.image;
 }
 
-profileImage.onerror = function () {
-    this.src = "https://via.placeholder.com/120";
+img.onerror=function(){
+    this.src="https://via.placeholder.com/120";
 };
 </script>
+
+</body>
+</html>
