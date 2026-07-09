@@ -1,1 +1,64 @@
 
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Members</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>सर्व सदस्य</h2>
+
+<div id="members">
+  Loading...
+</div>
+
+<script type="module">
+import { db } from "./firebase.js";
+import {
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const membersDiv = document.getElementById("members");
+
+async function loadMembers() {
+  membersDiv.innerHTML = "";
+
+  try {
+    const querySnapshot = await getDocs(collection(db, "profiles"));
+
+    if (querySnapshot.empty) {
+      membersDiv.innerHTML = "<p>कोणताही सदस्य नाही.</p>";
+      return;
+    }
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      membersDiv.innerHTML += `
+        <div style="border:1px solid #ccc;padding:10px;margin:10px;">
+          <img src="${data.photoURL || ""}" width="120"><br><br>
+
+          <b>नाव:</b> ${data.name || ""}<br>
+          <b>वय:</b> ${data.age || ""}<br>
+          <b>शहर:</b> ${data.city || ""}<br><br>
+
+          ${data.pdfURL ? `<a href="${data.pdfURL}" target="_blank">PDF पाहा</a>` : ""}
+        </div>
+      `;
+    });
+
+  } catch (e) {
+    membersDiv.innerHTML = "डेटा लोड झाला नाही.";
+    console.log(e);
+  }
+}
+
+loadMembers();
+</script>
+
+</body>
+</html>
