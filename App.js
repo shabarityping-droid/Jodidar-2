@@ -1,38 +1,63 @@
-
 import { db } from "./firebase-config.js";
-import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import {
+  ref,
+  get
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const profileId = localStorage.getItem("profileId");
+// URL मधून profileId घ्या
+const params = new URLSearchParams(window.location.search);
+const profileId = params.get("id");
 
 if (!profileId) {
-    alert("प्रोफाइल सापडले नाही.");
-    window.location.href = "register.html";
+  alert("Profile ID मिळाला नाही.");
+  throw new Error("Profile ID missing");
 }
 
 const userRef = ref(db, "users/" + profileId);
 
 get(userRef).then((snapshot) => {
 
-    if (!snapshot.exists()) {
-        alert("डेटा मिळाला नाही.");
-        return;
-    }
+  if (!snapshot.exists()) {
+    alert("Profile सापडला नाही.");
+    return;
+  }
 
-    const user = snapshot.val();
+  const data = snapshot.val();
 
-    document.getElementById("photo").src = user.photo || "";
-    document.getElementById("name").innerText = user.name || "";
-    document.getElementById("age").innerText = user.age || "";
-    document.getElementById("gender").innerText = user.gender || "";
-    document.getElementById("mobile").innerText = user.mobile || "";
-    document.getElementById("village").innerText = user.village || "";
-    document.getElementById("taluka").innerText = user.taluka || "";
-    document.getElementById("district").innerText = user.district || "";
-    document.getElementById("education").innerText = user.education || "";
-    document.getElementById("occupation").innerText = user.occupation || "";
-    document.getElementById("about").innerText = user.about || "";
+  document.getElementById("photo").src =
+    data.photo || "https://via.placeholder.com/150";
+
+  document.getElementById("name").textContent =
+    data.name || "";
+
+  document.getElementById("age").textContent =
+    data.age || "";
+
+  document.getElementById("gender").textContent =
+    data.gender || "";
+
+  document.getElementById("mobile").textContent =
+    data.mobile || "";
+
+  document.getElementById("village").textContent =
+    data.village || "";
+
+  document.getElementById("taluka").textContent =
+    data.taluka || "";
+
+  document.getElementById("district").textContent =
+    data.district || "";
+
+  document.getElementById("education").textContent =
+    data.education || "";
+
+  document.getElementById("occupation").textContent =
+    data.occupation || "";
+
+  document.getElementById("about").textContent =
+    data.about || "";
 
 }).catch((error) => {
-    console.error(error);
-    alert("डेटा लोड करताना त्रुटी आली.");
+  console.log(error);
+  alert("डेटा लोड झाला नाही.");
 });
