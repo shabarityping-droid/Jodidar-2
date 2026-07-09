@@ -1,1 +1,52 @@
 
+<script type="module">
+import { db } from "./firebase.js";
+
+import {
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const membersDiv = document.getElementById("members");
+
+async function loadMembers() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "profiles"));
+
+    if (querySnapshot.empty) {
+      membersDiv.innerHTML = "<h3>अजून कोणतीही नोंद नाही.</h3>";
+      return;
+    }
+
+    membersDiv.innerHTML = "";
+
+    querySnapshot.forEach((docSnap) => {
+      const user = docSnap.data();
+      const id = docSnap.id;
+
+      const card = document.createElement("div");
+      card.className = "member-card";
+
+      card.innerHTML = `
+        <img src="${user.photoURL || ''}" alt="Photo">
+        <h3>${user.name || ""}</h3>
+        <p>वय : ${user.age || ""}</p>
+        <p>गाव : ${user.village || ""}</p>
+      `;
+
+      card.onclick = () => {
+        localStorage.setItem("profileId", id);
+        window.location.href = "profile.html";
+      };
+
+      membersDiv.appendChild(card);
+    });
+
+  } catch (error) {
+    console.error(error);
+    membersDiv.innerHTML = "<h3>डेटा लोड करताना त्रुटी आली.</h3>";
+  }
+}
+
+loadMembers();
+</script>
