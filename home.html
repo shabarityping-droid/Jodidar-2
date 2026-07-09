@@ -1,112 +1,51 @@
-<!DOCTYPE html>
-<html lang="mr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jodidar - Home</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-        .members{
-            display:grid;
-            grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
-            gap:15px;
-            margin-top:20px;
-        }
-
-        .member-card{
-            background:#fff;
-            border-radius:10px;
-            padding:10px;
-            text-align:center;
-            box-shadow:0 2px 8px rgba(0,0,0,.15);
-            cursor:pointer;
-        }
-
-        .member-card img{
-            width:120px;
-            height:150px;
-            object-fit:cover;
-            border-radius:8px;
-        }
-
-        .member-card h3{
-            margin-top:10px;
-            color:#e91e63;
-            font-size:18px;
-        }
-
-        .member-card p{
-            margin:5px 0;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <h1>Jodidar सदस्य</h1>
-
-    <div id="members" class="members">
-
-    </div>
-
-</div>
 <script type="module">
-
-import { db } from "./firebase-config.js";
+import { db } from "./firebase.js";
 
 import {
-    ref,
-    get
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const membersDiv = document.getElementById("members");
 
-const usersRef = ref(db, "users");
+async function loadMembers() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "profiles"));
 
-get(usersRef).then((snapshot) => {
-
-    if (!snapshot.exists()) {
-        membersDiv.innerHTML = "<h3>अजून कोणतीही नोंदणी नाही.</h3>";
-        return;
+    if (querySnapshot.empty) {
+      membersDiv.innerHTML = "<h3>अजून कोणतीही नोंद नाही.</h3>";
+      return;
     }
 
-    const users = snapshot.val();
+    membersDiv.innerHTML = "";
 
-    Object.keys(users).forEach((id) => {
+    querySnapshot.forEach((docSnap) => {
+      const user = docSnap.data();
+      const id = docSnap.id;
 
-        const user = users[id];
+      const card = document.createElement("div");
+      card.className = "member-card";
 
-        const card = document.createElement("div");
-        card.className = "member-card";
+      card.innerHTML = `
+        <img src="${user.photoURL || ''}" alt="Photo">
+        <h3>${user.name || ""}</h3>
+        <p>वय : ${user.age || ""}</p>
+        <p>${user.village || ""}</p>
+      `;
 
-        card.innerHTML = `
-            <img src="${user.photo}" alt="Photo">
-            <h3>${user.name}</h3>
-            <p>वय : ${user.age}</p>
-            <p>${user.village}</p>
-        `;
+      card.onclick = () => {
+        localStorage.setItem("profileId", id);
+        window.location.href = "profile.html";
+      };
 
-        card.onclick = () => {
-            localStorage.setItem("profileId", id);
-            window.location.href = "profile.html";
-        };
-
-        membersDiv.appendChild(card);
-
+      membersDiv.appendChild(card);
     });
 
-}).catch((error) => {
-
+  } catch (error) {
     console.error(error);
     membersDiv.innerHTML = "<h3>डेटा लोड करताना त्रुटी आली.</h3>";
+  }
+}
 
-});
-
+loadMembers();
 </script>
-
-</body>
-</html>
