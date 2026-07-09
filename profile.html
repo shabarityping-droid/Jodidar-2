@@ -1,101 +1,78 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jodidar - Profile</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>माझे प्रोफाइल</title>
 
-    <link rel="stylesheet" href="style.css">
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+}
+.container{
+    max-width:500px;
+    margin:20px auto;
+    background:#fff;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+img{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    margin:auto;
+    border:3px solid #ff4081;
+}
+h2{
+    text-align:center;
+}
+.item{
+    margin:10px 0;
+    font-size:18px;
+}
+strong{
+    color:#ff4081;
+}
+</style>
+
 </head>
-
 <body>
 
 <div class="container">
 
-    <h1>माझे प्रोफाइल</h1>
+<img id="photo" src="" alt="Photo">
 
-    <div class="profile-card">
+<h2 id="name">Loading...</h2>
 
-        <img
-            id="profilePhoto"
-            src="https://via.placeholder.com/150x180?text=Photo"
-            alt="Profile Photo">
+<div class="item"><strong>वय :</strong> <span id="age"></span></div>
 
-        <p><strong>नाव:</strong> <span id="name"></span></p>
+<div class="item"><strong>लिंग :</strong> <span id="gender"></span></div>
 
-        <p><strong>वय:</strong> <span id="age"></span></p>
+<div class="item"><strong>मोबाईल :</strong> <span id="mobile"></span></div>
 
-        <p><strong>लिंग:</strong> <span id="gender"></span></p>
+<div class="item"><strong>गाव :</strong> <span id="village"></span></div>
 
-        <p><strong>मोबाईल:</strong> <span id="mobile"></span></p>
+<div class="item"><strong>तालुका :</strong> <span id="taluka"></span></div>
 
-        <p><strong>गाव:</strong> <span id="village"></span></p>
+<div class="item"><strong>जिल्हा :</strong> <span id="district"></span></div>
 
-        <p><strong>तालुका:</strong> <span id="taluka"></span></p>
+<div class="item"><strong>शिक्षण :</strong> <span id="education"></span></div>
 
-        <p><strong>जिल्हा:</strong> <span id="district"></span></p>
+<div class="item"><strong>व्यवसाय :</strong> <span id="occupation"></span></div>
 
-        <p><strong>शिक्षण:</strong> <span id="education"></span></p>
-
-        <p><strong>व्यवसाय:</strong> <span id="occupation"></span></p>
-
-        <p><strong>स्वतःबद्दल:</strong></p>
-
-        <p id="about"></p>
-
-    </div>
+<div class="item">
+<strong>माहिती :</strong>
+<p id="about"></p>
+</div>
 
 </div>
-<script type="module">
 
-import { db } from "./firebase-config.js";
-
-import {
-  ref,
-  get
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-const profileId = localStorage.getItem("profileId");
-
-if (!profileId) {
-    alert("प्रोफाइल सापडले नाही.");
-    window.location.href = "register.html";
-}
-
-const userRef = ref(db, "users/" + profileId);
-
-get(userRef).then((snapshot) => {
-
-    if (snapshot.exists()) {
-
-        const user = snapshot.val();
-
-        document.getElementById("profilePhoto").src = user.photo || "";
-        document.getElementById("name").textContent = user.name || "";
-        document.getElementById("age").textContent = user.age || "";
-        document.getElementById("gender").textContent = user.gender || "";
-        document.getElementById("mobile").textContent = user.mobile || "";
-        document.getElementById("village").textContent = user.village || "";
-        document.getElementById("taluka").textContent = user.taluka || "";
-        document.getElementById("district").textContent = user.district || "";
-        document.getElementById("education").textContent = user.education || "";
-        document.getElementById("occupation").textContent = user.occupation || "";
-        document.getElementById("about").textContent = user.about || "";
-
-    } else {
-
-        alert("प्रोफाइल माहिती उपलब्ध नाही.");
-
-    }
-
-}).catch((error) => {
-
-    console.error(error);
-    alert("डेटा लोड करताना त्रुटी आली.");
-
-});
-
-</script>
+<script type="module" src="App.js"></script>
 
 </body>
 </html>
