@@ -3,40 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>माझे प्रोफाइल</title>
+<title>Profile</title>
 
 <style>
 body{
     margin:0;
+    padding:20px;
     font-family:Arial,sans-serif;
     background:#f5f5f5;
 }
+
 .container{
     max-width:500px;
-    margin:20px auto;
+    margin:auto;
     background:#fff;
     border-radius:10px;
     padding:20px;
-    box-shadow:0 0 10px rgba(0,0,0,.2);
+    box-shadow:0 0 10px rgba(0,0,0,.1);
 }
+
 img{
-    width:150px;
-    height:150px;
+    width:140px;
+    height:140px;
     border-radius:50%;
     object-fit:cover;
     display:block;
-    margin:auto;
+    margin:0 auto 20px;
     border:3px solid #ff4081;
 }
+
 h2{
     text-align:center;
-}
-.item{
-    margin:10px 0;
-    font-size:18px;
-}
-strong{
     color:#ff4081;
+}
+
+.row{
+    margin:10px 0;
+    font-size:17px;
+}
+
+b{
+    color:#444;
 }
 </style>
 
@@ -47,32 +54,26 @@ strong{
 
 <img id="photo" src="" alt="Photo">
 
-<h2 id="name">Loading...</h2>
+<h2 id="name">नाव</h2>
 
-<div class="item"><strong>वय :</strong> <span id="age"></span></div>
+<div class="row"><b>वय :</b> <span id="age"></span></div>
 
-<div class="item"><strong>लिंग :</strong> <span id="gender"></span></div>
+<div class="row"><b>लिंग :</b> <span id="gender"></span></div>
 
-<div class="item"><strong>मोबाईल :</strong> <span id="mobile"></span></div>
+<div class="row"><b>मोबाईल :</b> <span id="mobile"></span></div>
 
-<div class="item"><strong>गाव :</strong> <span id="village"></span></div>
+<div class="row"><b>गाव :</b> <span id="village"></span></div>
 
-<div class="item"><strong>तालुका :</strong> <span id="taluka"></span></div>
+<div class="row"><b>तालुका :</b> <span id="taluka"></span></div>
 
-<div class="item"><strong>जिल्हा :</strong> <span id="district"></span></div>
+<div class="row"><b>जिल्हा :</b> <span id="district"></span></div>
 
-<div class="item"><strong>शिक्षण :</strong> <span id="education"></span></div>
+<div class="row"><b>शिक्षण :</b> <span id="education"></span></div>
 
-<div class="item"><strong>व्यवसाय :</strong> <span id="occupation"></span></div>
+<div class="row"><b>व्यवसाय :</b> <span id="occupation"></span></div>
 
-<div class="item">
-<strong>माहिती :</strong>
-<p id="about"></p>
-</div>
+<div class="row"><b>माझ्याबद्दल :</b> <span id="about"></span></div>
 
 </div>
 
-<script type="module" src="App.js"></script>
-
-</body>
-</html>
+<script type="module" src="
