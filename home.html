@@ -1,95 +1,112 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jodidar - Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jodidar - Home</title>
 
-<style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f5f5f5;
-}
-header{
-    background:#e91e63;
-    color:#fff;
-    text-align:center;
-    padding:15px;
-    font-size:24px;
-    font-weight:bold;
-}
-.container{
-    width:90%;
-    max-width:500px;
-    margin:20px auto;
-}
-.card{
-    background:#fff;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.2);
-    margin-bottom:20px;
-}
-.card h2{
-    color:#e91e63;
-}
-.menu{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-}
-.menu a{
-    text-decoration:none;
-    background:#e91e63;
-    color:#fff;
-    padding:15px;
-    text-align:center;
-    border-radius:8px;
-    font-size:18px;
-}
-.menu a:hover{
-    background:#c2185b;
-}
-footer{
-    margin-top:30px;
-    text-align:center;
-    padding:15px;
-    background:#e91e63;
-    color:white;
-}
-</style>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .members{
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+            gap:15px;
+            margin-top:20px;
+        }
+
+        .member-card{
+            background:#fff;
+            border-radius:10px;
+            padding:10px;
+            text-align:center;
+            box-shadow:0 2px 8px rgba(0,0,0,.15);
+            cursor:pointer;
+        }
+
+        .member-card img{
+            width:120px;
+            height:150px;
+            object-fit:cover;
+            border-radius:8px;
+        }
+
+        .member-card h3{
+            margin-top:10px;
+            color:#e91e63;
+            font-size:18px;
+        }
+
+        .member-card p{
+            margin:5px 0;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-💖 Jodidar
-</header>
-
 <div class="container">
 
-<div class="card">
-<h2>स्वागत आहे</h2>
-<p>Jodidar अॅपमध्ये तुमचे स्वागत आहे.</p>
-<p>या आवृत्तीत Email, Password, OTP किंवा Firebase Authentication नाही.</p>
-</div>
+    <h1>Jodidar सदस्य</h1>
 
-<div class="menu">
-<button onclick="window.location.href='payment.html'">💳 Payment</button>
-<a href="profile.html">👤 Profile</a>
-<a href="matches.html">❤️ Matches</a>
-<a href="settings.html">⚙️ Settings</a>
-<a href="about.html">ℹ️ About</a>
-<a href="contact.html">📞 Contact</a>
-<a href="index.html">🚪 Logout</a>
-</div>
+    <div id="members" class="members">
+
+    </div>
 
 </div>
+<script type="module">
 
-<footer>
-© 2026 Jodidar. All Rights Reserved.
-</footer>
+import { db } from "./firebase-config.js";
+
+import {
+    ref,
+    get
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const membersDiv = document.getElementById("members");
+
+const usersRef = ref(db, "users");
+
+get(usersRef).then((snapshot) => {
+
+    if (!snapshot.exists()) {
+        membersDiv.innerHTML = "<h3>अजून कोणतीही नोंदणी नाही.</h3>";
+        return;
+    }
+
+    const users = snapshot.val();
+
+    Object.keys(users).forEach((id) => {
+
+        const user = users[id];
+
+        const card = document.createElement("div");
+        card.className = "member-card";
+
+        card.innerHTML = `
+            <img src="${user.photo}" alt="Photo">
+            <h3>${user.name}</h3>
+            <p>वय : ${user.age}</p>
+            <p>${user.village}</p>
+        `;
+
+        card.onclick = () => {
+            localStorage.setItem("profileId", id);
+            window.location.href = "profile.html";
+        };
+
+        membersDiv.appendChild(card);
+
+    });
+
+}).catch((error) => {
+
+    console.error(error);
+    membersDiv.innerHTML = "<h3>डेटा लोड करताना त्रुटी आली.</h3>";
+
+});
+
+</script>
 
 </body>
 </html>
